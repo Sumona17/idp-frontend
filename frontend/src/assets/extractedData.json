@@ -1,0 +1,1003 @@
+[
+  {
+    "page": 1,
+    "Document Category": "ADOPTION AGREEMENT #006",
+    "Document Title": "STANDARDIZED 401(k) PLAN",
+    "bounding_box": {
+      "width": 0.8066347527503968,
+      "height": 0,
+      "left": 0.08284815400838852,
+      "top": 0
+    },
+    "confidence_score": 0,
+    "line_number": null
+  },
+  {
+    "page": 2,
+    "1. EMPLOYER(1.24)": {
+      "Name": {
+        "value": "Test Case 1 Knight Train Railroad Company",
+        "confidence_score": 99,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.009592367336153984,
+          "left": 0.08284815400838852,
+          "top": 0.39026644825935364
+        },
+        "line": 22
+      },
+      "Address": {
+        "value": "401 Boones Farm Road, Cherry Creek CO, 30198",
+        "confidence_score": 99,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.009522699750959873,
+          "left": 0.08284815400838852,
+          "top": 0.40861743688583374
+        },
+        "line": 23
+      },
+      "Phone Number": {
+        "value": "(401) 501 4032",
+        "confidence_score": 95,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.009082767181098461,
+          "left": 0.08284815400838852,
+          "top": 0.4273916184902191
+        },
+        "line": 24
+      },
+      "Taxpayer Identification Number(TIN)": {
+        "value": "88-1234567",
+        "confidence_score": 99,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.007496916223317385,
+          "left": 0.08284815400838852,
+          "top": 0.44560059905052185
+        },
+        "line": 25
+      },
+      "E-mail(optional)": {
+        "value": "NTRCompany@NTRC.com",
+        "confidence_score": 99,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.009532545693218708,
+          "left": 0.08284815400838852,
+          "top": 0.4614327549934387
+        },
+        "line": 26
+      },
+      "Employer's Taxable Year(optional)": {
+        "value": "December 31",
+        "confidence_score": 99,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.0074998848140239716,
+          "left": 0.08284815400838852,
+          "top": 0.4807576835155487
+        },
+        "line": 27
+      }
+    },
+    "2. PLAN(1.42)": {
+      "Name": {
+        "value": "Knight Train 401(k) Plan",
+        "confidence_score": 98,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.009380022995173931,
+          "left": 0.08284815400838852,
+          "top": 0.5250036716461182
+        },
+        "line": 29
+      },
+      "Plan number": {
+        "value": "001",
+        "confidence_score": 99,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.007002297788858414,
+          "left": 0.08284815400838852,
+          "top": 0.5431919693946838
+        },
+        "line": 30
+      },
+      "Trust EIN(optional)": {
+        "value": "99-6001579",
+        "confidence_score": 99,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.007489996030926704,
+          "left": 0.08284815400838852,
+          "top": 0.561562180519104
+        },
+        "line": 31
+      }
+    },
+    "3. PLAN/LIMITATION YEAR(1.44/1.34)": {
+      "Plan Year": {
+        "(a) December 31": {
+          "checked": true,
+          "confidence_score": 60,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.01122156623750925,
+            "left": 0.08284815400838852,
+            "top": 0.6721742749214172
+          },
+          "line": 37
+        },
+        "(b) Fiscal Plan Year": {
+          "checked": false,
+          "value": "",
+          "confidence_score": 0,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.002984951715916395,
+            "left": 0.08284815400838852,
+            "top": 0.6999046802520752
+          },
+          "line": 38
+        },
+        "(c) Short Plan Year commencing:": {
+          "checked": false,
+          "value": "",
+          "confidence_score": 0,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.010583234950900078,
+            "left": 0.08284815400838852,
+            "top": 0.7137753367424011
+          },
+          "line": 39
+        }
+      },
+      "Limitation Year": {
+        "(d) Generally same as Plan Year": {
+          "checked": true,
+          "confidence_score": 60,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.036557652056217194,
+            "left": 0.08284815400838852,
+            "top": 0.7505822777748108
+          },
+          "line": 41
+        },
+        "(e) Different Limitation Year": {
+          "checked": true,
+          "value": "",
+          "confidence_score": 64,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.011003521271049976,
+            "left": 0.08284815400838852,
+            "top": 0.7972722053527832
+          },
+          "line": 44
+        },
+        "(f) Short Limitation Year commencing:": {
+          "checked": false,
+          "value": "",
+          "confidence_score": 0,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.010815334506332874,
+            "left": 0.08284815400838852,
+            "top": 0.8184337019920349
+          },
+          "line": 46
+        }
+      }
+    }
+  },
+  {
+    "page": 3,
+    "4. EFFECTIVE DATE(1.20)": {
+      "(a) New Plan": {
+        "checked": true,
+        "value": "",
+        "confidence_score": 60,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.010874275118112564,
+          "left": 0.08284815400838852,
+          "top": 0.10678161680698395
+        },
+        "line": 4
+      },
+      "(b) Restated Plan": {
+        "checked": true,
+        "confidence_score": 65,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.011021238751709461,
+          "left": 0.08284815400838852,
+          "top": 0.12804611027240753
+        },
+        "line": 5,
+        "(1) PPA RESTATEMENT": {
+          "checked": false,
+          "confidence_score": 61,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.024970749393105507,
+            "left": 0.08284815400838852,
+            "top": 0.16849221289157867
+          },
+          "line": 7
+        }
+      },
+      "(c) Initial Effective Date of Plan": {
+        "checked": true,
+        "value": "1/1/2023",
+        "confidence_score": 71,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.012443209998309612,
+          "left": 0.08284815400838852,
+          "top": 0.21840687096118927
+        },
+        "line": 10
+      },
+      "(d) Restatement Effective Date": {
+        "checked": false,
+        "value": "",
+        "confidence_score": 59,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.03817300498485565,
+          "left": 0.08284815400838852,
+          "top": 0.2563988268375397
+        },
+        "line": 12
+      },
+      "(e) Restatement of surviving and merging plans": {
+        "checked": false,
+        "value": "",
+        "confidence_score": 56,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.010826841928064823,
+          "left": 0.08284815400838852,
+          "top": 0.3635646402835846
+        },
+        "line": 19,
+        "(1) Merging plan. The": {
+          "value": "",
+          "confidence_score": 0,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.011683872900903225,
+            "left": 0.08284815400838852,
+            "top": 0.4089682996273041
+          },
+          "line": 22
+        },
+        "(2) Additional merging plans": {
+          "checked": true,
+          "confidence_score": 72,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.010565847158432007,
+            "left": 0.08284815400838852,
+            "top": 0.47827786207199097
+          },
+          "line": 26,
+          "Additional merging plans description": {
+            "a": {
+              "Name of merging plan": {
+                "value": "",
+                "confidence_score": 0,
+                "bounding_box": {
+                  "width": 0.8066347527503968,
+                  "height": 0.03851507976651192,
+                  "left": 0.08284815400838852,
+                  "top": 0.5383256077766418
+                },
+                "line": 30
+              },
+              "Merger date": {
+                "value": "",
+                "confidence_score": 0,
+                "bounding_box": {
+                  "width": 0.8066347527503968,
+                  "height": 0.04036416485905647,
+                  "left": 0.08284815400838852,
+                  "top": 0.5362932085990906
+                },
+                "line": 30
+              },
+              "Restated Effective Date": {
+                "value": "",
+                "confidence_score": 0,
+                "bounding_box": {
+                  "width": 0.8066347527503968,
+                  "height": 0.04061410203576088,
+                  "left": 0.08284815400838852,
+                  "top": 0.53604656457901
+                },
+                "line": 30
+              },
+              "Original Effective Date": {
+                "value": "",
+                "confidence_score": 0,
+                "bounding_box": {
+                  "width": 0.8066347527503968,
+                  "height": 0.040598224848508835,
+                  "left": 0.08284815400838852,
+                  "top": 0.5356807112693787
+                },
+                "line": 30
+              }
+            },
+            "b": {
+              "Name of merging plan": {
+                "value": "",
+                "confidence_score": 0,
+                "bounding_box": {
+                  "width": 0.8066347527503968,
+                  "height": 0.009177770465612411,
+                  "left": 0.08284815400838852,
+                  "top": 0.5765328407287598
+                },
+                "line": null
+              },
+              "Merger date": {
+                "value": "",
+                "confidence_score": 0,
+                "bounding_box": {
+                  "width": 0.8066347527503968,
+                  "height": 0.021007785573601723,
+                  "left": 0.08284815400838852,
+                  "top": 0.5555258989334106
+                },
+                "line": null
+              },
+              "Restated Effective Date": {
+                "value": "",
+                "confidence_score": 0,
+                "bounding_box": {
+                  "width": 0.8066347527503968,
+                  "height": 0.016673017293214798,
+                  "left": 0.08284815400838852,
+                  "top": 0.538853645324707
+                },
+                "line": null
+              },
+              "Original Effective Date": {
+                "value": "",
+                "confidence_score": 0,
+                "bounding_box": {
+                  "width": 0.8066347527503968,
+                  "height": 0.009177770465612411,
+                  "left": 0.08284815400838852,
+                  "top": 0.5765328407287598
+                },
+                "line": null
+              }
+            }
+          }
+        }
+      },
+      "(f) Special Effective Date for Elective Deferral provisions": {
+        "checked": false,
+        "value": "",
+        "confidence_score": 58,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.010843007825314999,
+          "left": 0.08284815400838852,
+          "top": 0.5869485139846802
+        },
+        "line": 33
+      }
+    },
+    "5. TRUSTEE(1.67)": {
+      "(a) A discretionary Trustee": {
+        "checked": false,
+        "confidence_score": 0,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.010436155833303928,
+          "left": 0.08284815400838852,
+          "top": 0.693731963634491
+        },
+        "line": 39
+      },
+      "(b) A nondiscretionary (directed) Trustee or Custodian": {
+        "checked": true,
+        "confidence_score": 0,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.00954852718859911,
+          "left": 0.08284815400838852,
+          "top": 0.7147949934005737
+        },
+        "line": 40
+      },
+      "(c) A Trustee under the:________(specify name of trust)": {
+        "checked": false,
+        "value": "",
+        "confidence_score": 56,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.05001946911215782,
+          "left": 0.08284815400838852,
+          "top": 0.7342489957809448
+        },
+        "line": 41
+      },
+      "(d) Use of non-approved trust. A Trustee under the:": {
+        "checked": true,
+        "value": "[",
+        "confidence_score": 62,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.010211697779595852,
+          "left": 0.08284815400838852,
+          "top": 0.7945382595062256
+        },
+        "line": 45
+      }
+    },
+    "6. CONTRIBUTION TYPES(1.12)": {}
+  },
+  {
+    "page": 4,
+    "6. CONTRIBUTION TYPES(1.12) continued": {
+      "Frozen Plan": {
+        "(a) Contributions cease": {
+          "checked": false,
+          "confidence_score": 70,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.010151246562600136,
+            "left": 0.08284815400838852,
+            "top": 0.09429871290922165
+          },
+          "line": 3,
+          "(1) Effective date of freeze": {
+            "checked": false,
+            "value": "[ ]",
+            "confidence_score": 76,
+            "bounding_box": {
+              "width": 0.8066347527503968,
+              "height": 0.025013862177729607,
+              "left": 0.08284815400838852,
+              "top": 0.11403194069862366
+            },
+            "line": 4
+          }
+        }
+      },
+      "Contributions": {
+        "(b) Pre-Tax Deferrals": {
+          "checked": true,
+          "confidence_score": 57,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.010668446309864521,
+            "left": 0.08284815400838852,
+            "top": 0.20348335802555084
+          },
+          "line": 9,
+          "(1) Roth Deferrals": {
+            "checked": false,
+            "confidence_score": 0,
+            "bounding_box": {
+              "width": 0.8066347527503968,
+              "height": 0.024492699652910233,
+              "left": 0.08284815400838852,
+              "top": 0.22363309562206268
+            },
+            "line": 10
+          }
+        },
+        "(c) Matching": {
+          "checked": false,
+          "confidence_score": 69,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.025006530806422234,
+            "left": 0.08284815400838852,
+            "top": 0.25665655732154846
+          },
+          "line": 12
+        },
+        "(d) Nonelective": {
+          "checked": true,
+          "confidence_score": 60,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.02464296482503414,
+            "left": 0.08284815400838852,
+            "top": 0.29054147005081177
+          },
+          "line": 14
+        },
+        "(e) Safe Harbor/Additional Matching": {
+          "checked": false,
+          "confidence_score": 0,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.05048257112503052,
+            "left": 0.08284815400838852,
+            "top": 0.32394808530807495
+          },
+          "line": 16
+        },
+        "(f) Employee (after-tax)": {
+          "checked": false,
+          "confidence_score": 61,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.012400368228554726,
+            "left": 0.08284815400838852,
+            "top": 0.3837355375289917
+          },
+          "line": 20
+        },
+        "(g) SIMPLE 401(k)": {
+          "checked": false,
+          "confidence_score": 0,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.024759963154792786,
+            "left": 0.08284815400838852,
+            "top": 0.4052114188671112
+          },
+          "line": 21
+        },
+        "(h) Designated IRA": {
+          "checked": false,
+          "confidence_score": 63,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.011982277035713196,
+            "left": 0.08284815400838852,
+            "top": 0.438644140958786
+          },
+          "line": 23
+        }
+      }
+    },
+    "7. DISABILITY(1.16)": {
+      "(a) Basic Plan": {
+        "checked": true,
+        "confidence_score": 66,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.01233950536698103,
+          "left": 0.08284815400838852,
+          "top": 0.48534780740737915
+        },
+        "line": 25
+      },
+      "(b) Describe": {
+        "checked": false,
+        "value": "[ ]",
+        "confidence_score": 65,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.011013317853212357,
+          "left": 0.08284815400838852,
+          "top": 0.5060642957687378
+        },
+        "line": 26
+      }
+    },
+    "8.EXCLUDED EMPLOYEES(1.22(D))": {
+      "(a) No Excluded Employees": {
+        "checked": false,
+        "confidence_score": 0,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.02360772155225277,
+          "left": 0.08284815400838852,
+          "top": 0.5996765494346619
+        },
+        "line": 31
+      },
+      "(b) Exclusions-same for all Contribution Types": {
+        "checked": true,
+        "confidence_score": 75,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.024982506409287453,
+          "left": 0.08284815400838852,
+          "top": 0.6330960988998413
+        },
+        "line": 33
+      },
+      "(c) Exclusions-different exclusions apply": {
+        "checked": false,
+        "confidence_score": 0,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.025279564782977104,
+          "left": 0.08284815400838852,
+          "top": 0.6667212247848511
+        },
+        "line": 35
+      },
+      "Exclusions": {
+        "(d) No exclusions": {
+          "checked": true,
+          "confidence_score": 93,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.033346619457006454,
+            "left": 0.08284815400838852,
+            "top": 0.788597822189331
+          },
+          "line": 43,
+          "All Contributions": "N/A",
+          "Elective Deferrals": false,
+          "Matching": false,
+          "Nonelective": false
+        },
+        "(e) Collective Bargaining (union) Employees": {
+          "checked": true,
+          "confidence_score": 88,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.04635124281048775,
+            "left": 0.08284815400838852,
+            "top": 0.821942150592804
+          },
+          "line": 45,
+          "All Contributions": true,
+          "Elective Deferrals": false,
+          "Matching": false,
+          "Nonelective": false
+        },
+        "(f) Non-Resident Aliens": {
+          "checked": false,
+          "confidence_score": 94,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.03401406481862068,
+            "left": 0.08284815400838852,
+            "top": 0.8682908415794373
+          },
+          "line": 48,
+          "All Contributions": false,
+          "Elective Deferrals": false,
+          "Matching": false,
+          "Nonelective": false
+        },
+        "(g) HCEs": {
+          "checked": false,
+          "confidence_score": 97,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.02119837887585163,
+            "left": 0.08284815400838852,
+            "top": 0.9023020267486572
+          },
+          "line": 50,
+          "All Contributions": false,
+          "Elective Deferrals": false,
+          "Matching": false,
+          "Nonelective": false
+        }
+      }
+    }
+  },
+  {
+    "page": 5,
+    "9. COMPENSATION(1.11(B))": {
+      "(a) W-2 Wages (plus Elective Deferrals)": {
+        "checked": true,
+        "confidence_score": 84.15,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.033347491174936295,
+          "left": 0.08284815400838852,
+          "top": 0.29876410961151123
+        },
+        "line": 17,
+        "All Contributions": true,
+        "Elective Deferrals": false,
+        "Matching": false,
+        "Nonelective": false
+      },
+      "(b) Code \u00c2\u00a73401 Federal Income Tax Withholding Wages (plus Elective Deferrals)": {
+        "checked": false,
+        "confidence_score": 87.74,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.047352176159620285,
+          "left": 0.08284815400838852,
+          "top": 0.33210864663124084
+        },
+        "line": 19,
+        "All Contributions": false,
+        "Elective Deferrals": false,
+        "Matching": false,
+        "Nonelective": false
+      },
+      "(c) 415 Compensation(simplified)": {
+        "checked": true,
+        "confidence_score": 73.583984375,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.08736559748649597,
+          "left": 0.08284815400838852,
+          "top": 0.37945789098739624
+        },
+        "line": 22,
+        "All Contributions": false,
+        "Elective Deferrals": false,
+        "Matching": false,
+        "Nonelective": false
+      },
+      "(d) Describe Compensation by Contribution Type": {
+        "checked": false,
+        "value": "[ ]",
+        "confidence_score": 72.65625,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.011280300095677376,
+          "left": 0.08284815400838852,
+          "top": 0.4717986285686493
+        },
+        "line": 28
+      }
+    },
+    "10. PRE-ENTRY/POST-SEVERANCE COMPENSATION(1.11(H)/(I))": {
+      "Pre-Entry Compensation": {
+        "(a) Plan Year": {
+          "checked": false,
+          "confidence_score": 90.87,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.033680785447359085,
+            "left": 0.08284815400838852,
+            "top": 0.6785586476325989
+          },
+          "line": 41,
+          "All Contributions": false,
+          "Elective Deferrals": false,
+          "Matching": false,
+          "Nonelective": false
+        },
+        "(b) Participating Compensation": {
+          "checked": true,
+          "confidence_score": 86.28,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.0324581079185009,
+            "left": 0.08284815400838852,
+            "top": 0.7122367024421692
+          },
+          "line": 43,
+          "All Contributions": true,
+          "Elective Deferrals": false,
+          "Matching": false,
+          "Nonelective": false
+        },
+        "(c) Describe Pre-Entry Compensation by Contribution Type": {
+          "checked": false,
+          "value": "",
+          "confidence_score": 0.0,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.011563652195036411,
+            "left": 0.08284815400838852,
+            "top": 0.7860317826271057
+          },
+          "line": 47
+        }
+      }
+    }
+  },
+  {
+    "page": 6,
+    "Agreement as to Signatory Employer control.": {
+      "Plan Status": {
+        "New Plan": {
+          "checked": true,
+          "confidence_score": 64,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.010652577504515648,
+            "left": 0.08284815400838852,
+            "top": 0.2548494338989258
+          },
+          "line": 13
+        },
+        "Restated Plan": {
+          "checked": false,
+          "confidence_score": 0,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.01088416762650013,
+            "left": 0.08284815400838852,
+            "top": 0.2717045843601227
+          },
+          "line": 14
+        }
+      },
+      "Initial Effective Date of Plan": {
+        "checked": true,
+        "value": "1/1/2023",
+        "confidence_score": 99,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.011567264795303345,
+          "left": 0.08284815400838852,
+          "top": 0.3082010746002197
+        },
+        "line": 16
+      },
+      "Restatement Effective Date": {
+        "checked": false,
+        "value": "",
+        "confidence_score": 56,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.03813035786151886,
+          "left": 0.08284815400838852,
+          "top": 0.3457017242908478
+        },
+        "line": 18
+      }
+    },
+    "Signature Block": {
+      "Participating Employer": {
+        "value": "Knight Train Railroad Company",
+        "confidence_score": 99,
+        "bounding_box": {
+          "width": 0.15962907671928406,
+          "height": 0.009737429209053516,
+          "left": 0.5883309245109558,
+          "top": 0.47144296765327454
+        },
+        "line": 26
+      },
+      "Date": {
+        "value": "12/31/2022",
+        "confidence_score": 99,
+        "bounding_box": {
+          "width": 0.06588397175073624,
+          "height": 0.008601957932114601,
+          "left": 0.47995543479919434,
+          "top": 0.4879401922225952
+        },
+        "line": 27
+      },
+      "Signed": {
+        "value": "Thorey Kingl Thomas Knight",
+        "confidence_score": 78,
+        "bounding_box": {
+          "width": 0.15449856221675873,
+          "height": 0.04450817406177521,
+          "left": 0.4928419888019562,
+          "top": 0.4953139126300812
+        },
+        "line": 27
+      },
+      "Print Name/Title": {
+        "value": "Boone Knight",
+        "confidence_score": 99,
+        "bounding_box": {
+          "width": 0.07877007871866226,
+          "height": 0.010846089571714401,
+          "left": 0.09100467711687088,
+          "top": 0.666465163230896
+        },
+        "line": 37
+      },
+      "Participating Employer's TIN": {
+        "value": "XXXXXXXXX",
+        "confidence_score": 97,
+        "bounding_box": {
+          "width": 0.06932272017002106,
+          "height": 0.007634181994944811,
+          "left": 0.6250354051589966,
+          "top": 0.561841607093811
+        },
+        "line": 31
+      }
+    },
+    "Acceptance by Signatory Employer and Trustee/Custodian": {
+      "Signatory Employer": {
+        "Signatory Employer": {
+          "value": "Knight Train Railroad Company",
+          "confidence_score": 99,
+          "bounding_box": {
+            "width": 0.15929321944713593,
+            "height": 0.009567735716700554,
+            "left": 0.21744713187217712,
+            "top": 0.610110878944397
+          },
+          "line": 33
+        },
+        "Date": {
+          "value": "12/31/2022",
+          "confidence_score": 99,
+          "bounding_box": {
+            "width": 0.05686682090163231,
+            "height": 0.007696015294641256,
+            "left": 0.13061140477657318,
+            "top": 0.6255383491516113
+          },
+          "line": 34
+        },
+        "Signed": {
+          "value": "Boon. KnyA",
+          "confidence_score": 37,
+          "bounding_box": {
+            "width": 0.10392118990421295,
+            "height": 0.03920562192797661,
+            "left": 0.20557376742362976,
+            "top": 0.6276613473892212
+          },
+          "line": 34
+        },
+        "Print Name/Title": {
+          "value": "Boone Knight",
+          "confidence_score": 99,
+          "bounding_box": {
+            "width": 0.07877007871866226,
+            "height": 0.010846089571714401,
+            "left": 0.09100467711687088,
+            "top": 0.666465163230896
+          },
+          "line": 37
+        }
+      },
+      "Trustee(s)/Custodian(s)": {
+        "Trustee(s)/Custodian(s)": {
+          "value": "Bigtime Bank & Trust",
+          "confidence_score": 99,
+          "bounding_box": {
+            "width": 0.10738437622785568,
+            "height": 0.009299557656049728,
+            "left": 0.6780343651771545,
+            "top": 0.6098142266273499
+          },
+          "line": 33
+        },
+        "Date": {
+          "value": "12/31/2022",
+          "confidence_score": 99,
+          "bounding_box": {
+            "width": 0.40797725319862366,
+            "height": 0.015673786401748657,
+            "left": 0.5036680102348328,
+            "top": 0.6222090721130371
+          },
+          "line": null
+        },
+        "Signed": {
+          "value": "Billa Beghu",
+          "confidence_score": 53,
+          "bounding_box": {
+            "width": 0.40797728300094604,
+            "height": 0.022009270265698433,
+            "left": 0.503667950630188,
+            "top": 0.6378809809684753
+          },
+          "line": null
+        },
+        "Print Name/Title": {
+          "value": "Bubba Bigtime",
+          "confidence_score": 99,
+          "bounding_box": {
+            "width": 0.40797725319862366,
+            "height": 0.021018635481595993,
+            "left": 0.5036678314208984,
+            "top": 0.6598884463310242
+          },
+          "line": null
+        }
+      }
+    }
+  }
+]

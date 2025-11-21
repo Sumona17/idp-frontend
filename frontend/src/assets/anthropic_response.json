@@ -1,0 +1,332 @@
+[
+  {
+    "page": 1,
+    "Document Category": "LOAN ADMINISTRATION POLICY",
+    "Document Title": "401(k) Plan Loan Administration Policy",
+    "401(k) Plan Loan Administration Policy": {
+      "Plan Name": {
+        "value": "Knight Train 401(k) Plan",
+        "confidence_score": 97,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.02017480507493019,
+          "left": 0.08284815400838852,
+          "top": 0.11714386194944382
+        },
+        "line": 2
+      },
+      "Plan Number": {
+        "value": "001",
+        "confidence_score": 99,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.01597820594906807,
+          "left": 0.08284815400838852,
+          "top": 0.14050191640853882
+        },
+        "line": 3
+      }
+    },
+    "Article I. Eligibility": {
+      "Section 1.01": {
+        "Minimum Vested Account Balance": {
+          "value": "$2,000",
+          "confidence_score": 86,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.014005313627421856,
+            "left": 0.08284815400838852,
+            "top": 0.2817615270614624
+          },
+          "line": null
+        }
+      }
+    },
+    "Article II. Cost": {
+      "Section 2.01": {
+        "Loan Origination Fee": {
+          "value": "$50.00",
+          "confidence_score": 95,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.014005307108163834,
+            "left": 0.08284815400838852,
+            "top": 0.371794193983078
+          },
+          "line": null
+        }
+      },
+      "Section 2.02": {
+        "Maintenance Fee": {
+          "value": "$35.00",
+          "confidence_score": 79,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.014005307108163834,
+            "left": 0.08284815400838852,
+            "top": 0.4238132834434509
+          },
+          "line": null
+        }
+      },
+      "Section 2.03": {
+        "Express Delivery Additional Charge": {
+          "value": "$25.00",
+          "confidence_score": 97,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.014005311764776707,
+            "left": 0.08284815400838852,
+            "top": 0.4935058653354645
+          },
+          "line": null
+        }
+      }
+    },
+    "Article III. Minimum and maximum loan amounts": {
+      "Section 3.01": {
+        "Minimum Loan Amount": {
+          "value": "$1,000",
+          "confidence_score": 79,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.014338739216327667,
+            "left": 0.08284815400838852,
+            "top": 0.5661925077438354
+          },
+          "line": null
+        }
+      },
+      "Section 3.02": {
+        "Maximum Loan Amount": {
+          "value": "$50,000 or 50% of the vested account balance, whichever is less.",
+          "confidence_score": 56,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.0,
+            "left": 0.08284815400838852,
+            "top": 0.0
+          },
+          "line": null
+        }
+      }
+    }
+  },
+  {
+    "page": 2,
+    "Article IV. Number of Loans Permitted": {
+      "Section 4.01": {
+        "Number of Outstanding Loan": {
+          "value": "1",
+          "confidence_score": 0,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.001000350690446794,
+            "left": 0.08284815400838852,
+            "top": 0.14504438638687134
+          },
+          "line": 2
+        }
+      }
+    }
+  },
+  {
+    "page": 3,
+    "Article VII. Types of loans available": {
+      "Section 7.03": {
+        "Loans are only permitted in the case of financial hardship. Applicants must submit proof of the hardship to the Plan Administrator.": {
+          "selected": false,
+          "confidence_score": 0,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": null,
+            "left": 0.08284815400838852,
+            "top": null
+          },
+          "line": null
+        }
+      }
+    }
+  },
+  {
+    "page": 4,
+    "Article IX. Payment Requirements": {
+      "Section 9.07 Except as otherwise provided by the plan, if a borrowing participant terminates employment and does not receive a full distribution or does not begin receiving periodic payments from the Plan, the following shall apply - check Option A or B:": {
+        "Option A. In the event that a participant defers distribution of their account balance, a loan offset will occur no later than the end of the month following the 60th day after the date of termination of employment or retirement. If the date is received more than 60 days after the termination of employment or retirement date, the loan offset will occur at the end of the month in which the termination of employment or retirement date is received.": {
+          "selected": true,
+          "confidence_score": 98.79704666137695,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.1025514304637909,
+            "left": 0.08284815400838852,
+            "top": 0.5109865665435791
+          },
+          "line": 21
+        },
+        "Option B. The participant may continue to repay the loan by making loan repayments to the Employer. The Employer will deposit the loan repayments in the Trust through the Employers payroll deduction process. The loan may be paid in full at any time or offset against the participants account balance.": {
+          "selected": false,
+          "confidence_score": 98.82258620352115,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.06739384680986404,
+            "left": 0.08284815400838852,
+            "top": 0.6331833600997925
+          },
+          "line": 27
+        }
+      }
+    }
+  },
+  {
+    "page": 5,
+    "Section 9.10 Partial Loan Prepayments - check all applicable boxes": {
+      "Option A- Advance Payments Through Payroll Withholding - A participant may choose to make two or more payments in advance through payroll withholding. These payments will be applied as follows:": {
+        "selected": false,
+        "confidence_score": 97,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.050354160368442535,
+          "left": 0.08284815400838852,
+          "top": 0.31641286611557007
+        },
+        "line": 10,
+        "According to the current amortization schedule. Payments may not be made more than six months in advance.": {
+          "selected": false,
+          "confidence_score": 95,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.029845112934708595,
+            "left": 0.08284815400838852,
+            "top": 0.38632717728614807
+          }
+        },
+        "First to the current payment due, and then to the outstanding principal of the loan. The maturity date of the loan will be accelerated.": {
+          "selected": false,
+          "confidence_score": 98,
+          "bounding_box": {
+            "width": 0.8066347527503968,
+            "height": 0.03223149850964546,
+            "left": 0.08284815400838852,
+            "top": 0.4386400580406189
+          }
+        }
+      },
+      "Option B - Principal Reduction - A participant may make a payment of principal reduction. The amount will be applied first to any payments due and then to the outstanding principal of the loan. A new amortization schedule with an accelerated maturity will be produced.": {
+        "selected": true,
+        "confidence_score": 97,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.06779839843511581,
+          "left": 0.08284815400838852,
+          "top": 0.49051403999328613
+        },
+        "line": 17
+      }
+    }
+  },
+  {
+    "page": 6,
+    "Article XIV. Certification of Loan Policy": {
+      "Dated ______Day of_____,___": {
+        "value": "22nd day of December , 2022",
+        "confidence_score": 99.9802,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.015207519754767418,
+          "left": 0.08284815400838852,
+          "top": 0.7156784534454346
+        },
+        "line": 25
+      },
+      "Plan Administrator Signature": {
+        "value": "Bore Kniglet",
+        "confidence_score": 35.54,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.0480167381465435,
+          "left": 0.08284815400838852,
+          "top": 0.7462481260299683
+        },
+        "line": 27
+      }
+    }
+  },
+  {
+    "page": 7,
+    "Section 4.01": {
+      "A participant may have _____ loan outstanding at a time.": {
+        "selected": true,
+        "value": "3",
+        "confidence_score": 93,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.016203738749027252,
+          "left": 0.08284815400838852,
+          "top": 0.28736695647239685
+        },
+        "line": 7
+      },
+      "Loans may not be refined": {
+        "selected": false,
+        "confidence_score": 99,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.015540381893515587,
+          "left": 0.08284815400838852,
+          "top": 0.3194912075996399
+        },
+        "line": 8
+      }
+    },
+    "Section 6.01": {
+      "The maximum available loan amount will be calculated based upon all vested balances; however, the loan will only be funded from the following money types:": {
+        "selected": true,
+        "value": "Pre-tax and after-tax employee participant deferrals only.",
+        "confidence_score": 99,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.013292700983583927,
+          "left": 0.08284815400838852,
+          "top": 0.43845781683921814
+        },
+        "line": 12
+      }
+    },
+    "Section 8.01": {
+      "The interest rate on all loans will be ___ % over Prime Rate as described in the Loan Policy.": {
+        "selected": true,
+        "value": "1_%",
+        "confidence_score": 59,
+        "bounding_box": {
+          "width": 0.8066347527503968,
+          "height": 0.012381424196064472,
+          "left": 0.08284815400838852,
+          "top": 0.5567424297332764
+        },
+        "line": 14
+      },
+      "Plan Administrator Signature": {
+        "value": "Bore knight",
+        "confidence_score": 44,
+        "bounding_box": {
+          "width": 0.2820693850517273,
+          "height": 0.048031508922576904,
+          "left": 0.20490720868110657,
+          "top": 0.6081482768058777
+        },
+        "line": 16
+      },
+      "Date": {
+        "value": "12/22/2022",
+        "confidence_score": 100,
+        "bounding_box": {
+          "width": 0.08095341920852661,
+          "height": 0.01034125778824091,
+          "left": 0.58936607837677,
+          "top": 0.6410504579544067
+        },
+        "line": 17
+      }
+    }
+  }
+]

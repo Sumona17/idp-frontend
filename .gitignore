@@ -1,0 +1,9 @@
+# .gitignore (common for React)
+node_modules/
+build/
+dist/
+.env
+.vscode/
+.DS_Store
+npm-debug.log*
+yarn-error.log*

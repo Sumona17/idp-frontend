@@ -1,0 +1,1309 @@
+{
+  "page": 1,
+  "header": {
+    "form_identifier": {
+      "value": "ACORD",
+      "confidence_score": 0.99,
+      "bounding_box": {
+        "width": 0.12,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.01
+      },
+      "line": 1
+    },
+    "form_title": {
+      "value": "COMMERCIAL INSURANCE APPLICATION",
+      "confidence_score": 0.99,
+      "bounding_box": {
+        "width": 0.35,
+        "height": 0.02,
+        "left": 0.13,
+        "top": 0.01
+      },
+      "line": 2
+    },
+    "applicant_information_section_label": {
+      "value": "APPLICANT INFORMATION SECTION",
+      "confidence_score": 0.99,
+      "bounding_box": {
+        "width": 0.25,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.04
+      },
+      "line": 4
+    },
+    "date_mm_dd_yyyy": {
+      "value": "23-08-2022",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.12,
+        "height": 0.02,
+        "left": 0.25,
+        "top": 0.04
+      },
+      "line": 5
+    }
+  },
+  "producer_information": {
+    "producer_name": {
+      "value": "ABCD",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.1,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.07
+      },
+      "line": 7
+    },
+    "producer_code": {
+      "value": "A123",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.08,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.18
+      },
+      "line": 23
+    },
+    "carrier_name": {
+      "value": "XYZ",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.1,
+        "height": 0.02,
+        "left": 0.13,
+        "top": 0.07
+      },
+      "line": 8
+    },
+    "company_name": {
+      "value": "Hello",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.1,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.1
+      },
+      "line": 11
+    },
+    "policy_or_program_name": {
+      "value": "Hello",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.1,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.1
+      },
+      "line": 11
+    },
+    "program_code": {
+      "value": "123",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.06,
+        "height": 0.02,
+        "left": 0.13,
+        "top": 0.1
+      },
+      "line": 12
+    },
+    "policy_number": {
+      "value": "0123456789",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.13,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.12
+      },
+      "line": 13
+    },
+    "underwriter_name": {
+      "value": "John",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.08,
+        "height": 0.02,
+        "left": 0.13,
+        "top": 0.14
+      },
+      "line": 16
+    },
+    "underwriter_office": {
+      "value": "Chicago",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.1,
+        "height": 0.02,
+        "left": 0.25,
+        "top": 0.14
+      },
+      "line": 17
+    },
+    "producer_phone_number": {
+      "value": "0987654321",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.12,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.15
+      },
+      "line": 18
+    },
+    "producer_fax_number": {
+      "value": "6544233989",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.12,
+        "height": 0.02,
+        "left": 0.13,
+        "top": 0.16
+      },
+      "line": 20
+    },
+    "producer_email": {
+      "value": "hi@hello.com",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.15,
+        "height": 0.02,
+        "left": 0.13,
+        "top": 0.18
+      },
+      "line": 22
+    },
+    "agency_customer_id": {
+      "value": "6789123",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.1,
+        "height": 0.02,
+        "left": 0.25,
+        "top": 0.19
+      },
+      "line": 25
+    }
+  },
+  "transaction_status": {
+    "quote": {
+      "checked": false,
+      "confidence_score": 0.95,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.21
+      },
+      "line": 27
+    },
+    "issue": {
+      "checked": false,
+      "confidence_score": 0.95,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.05,
+        "top": 0.21
+      },
+      "line": 27
+    },
+    "rewrite": {
+      "checked": false,
+      "confidence_score": 0.95,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.09,
+        "top": 0.21
+      },
+      "line": 27
+    },
+    "renew": {
+      "checked": false,
+      "confidence_score": 0.95,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.13,
+        "top": 0.21
+      },
+      "line": 27
+    },
+    "bound": {
+      "checked": false,
+      "confidence_score": 0.95,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.17,
+        "top": 0.21
+      },
+      "line": 27
+    },
+    "change_date": {
+      "value": null,
+      "confidence_score": null,
+      "bounding_box": {
+        "width": null,
+        "height": null,
+        "left": null,
+        "top": null
+      },
+      "line": null
+    },
+    "change_time": {
+      "value": null,
+      "confidence_score": null,
+      "bounding_box": {
+        "width": null,
+        "height": null,
+        "left": null,
+        "top": null
+      },
+      "line": null
+    }
+  },
+  "notice_regarding_cancellation": {
+    "statement": {
+      "value": "NOTICE REGARDING CANCELLATION APPLICABLE IN SOUTH CAROLINA: THE INSURER CAN CANCEL THIS POLICY FOR WHICH YOU ARE APPLYING WITHOUT CAUSE DURING THE FIRST 120 DAYS. THAT IS THE INSURER'S CHOICE. AFTER THE FIRST 120 DAYS, THE INSURER CAN ONLY CANCEL THIS POLICY FOR REASONS STATED IN THE POLICY.",
+      "confidence_score": 0.99,
+      "bounding_box": {
+        "width": 0.98,
+        "height": 0.04,
+        "left": 0.01,
+        "top": 0.23
+      },
+      "line": 28
+    }
+  },
+  "lines_of_business": {
+    "boiler_and_machinery": {
+      "premium": {
+        "value": 234,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.08,
+          "height": 0.02,
+          "left": 0.01,
+          "top": 0.29
+        },
+        "line": 33
+      }
+    },
+    "business_auto": {
+      "premium": {
+        "value": 129,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.08,
+          "height": 0.02,
+          "left": 0.01,
+          "top": 0.31
+        },
+        "line": 35
+      }
+    },
+    "business_owners": {
+      "premium": {
+        "value": null,
+        "confidence_score": null,
+        "bounding_box": {
+          "width": null,
+          "height": null,
+          "left": null,
+          "top": null
+        },
+        "line": null
+      }
+    },
+    "commercial_general_liability": {
+      "premium": {
+        "value": null,
+        "confidence_score": null,
+        "bounding_box": {
+          "width": null,
+          "height": null,
+          "left": null,
+          "top": null
+        },
+        "line": null
+      }
+    },
+    "commercial_inland_marine": {
+      "premium": {
+        "value": null,
+        "confidence_score": null,
+        "bounding_box": {
+          "width": null,
+          "height": null,
+          "left": null,
+          "top": null
+        },
+        "line": null
+      }
+    },
+    "commercial_property": {
+      "premium": {
+        "value": 5679,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.08,
+          "height": 0.02,
+          "left": 0.01,
+          "top": 0.35
+        },
+        "line": 39
+      }
+    },
+    "crime": {
+      "premium": {
+        "value": null,
+        "confidence_score": null,
+        "bounding_box": {
+          "width": null,
+          "height": null,
+          "left": null,
+          "top": null
+        },
+        "line": null
+      }
+    },
+    "cyber_and_privacy": {
+      "premium": {
+        "value": 8678,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.08,
+          "height": 0.02,
+          "left": 0.13,
+          "top": 0.29
+        },
+        "line": 33
+      }
+    },
+    "fiduciary_liability": {
+      "premium": {
+        "value": null,
+        "confidence_score": null,
+        "bounding_box": {
+          "width": null,
+          "height": null,
+          "left": null,
+          "top": null
+        },
+        "line": null
+      }
+    },
+    "garage_and_dealers": {
+      "premium": {
+        "value": null,
+        "confidence_score": null,
+        "bounding_box": {
+          "width": null,
+          "height": null,
+          "left": null,
+          "top": null
+        },
+        "line": null
+      }
+    },
+    "liquor_liability": {
+      "premium": {
+        "value": null,
+        "confidence_score": null,
+        "bounding_box": {
+          "width": null,
+          "height": null,
+          "left": null,
+          "top": null
+        },
+        "line": null
+      }
+    },
+    "motor_carrier": {
+      "premium": {
+        "value": null,
+        "confidence_score": null,
+        "bounding_box": {
+          "width": null,
+          "height": null,
+          "left": null,
+          "top": null
+        },
+        "line": null
+      }
+    },
+    "truckers": {
+      "premium": {
+        "value": null,
+        "confidence_score": null,
+        "bounding_box": {
+          "width": null,
+          "height": null,
+          "left": null,
+          "top": null
+        },
+        "line": null
+      }
+    },
+    "umbrella": {
+      "premium": {
+        "value": null,
+        "confidence_score": null,
+        "bounding_box": {
+          "width": null,
+          "height": null,
+          "left": null,
+          "top": null
+        },
+        "line": null
+      }
+    },
+    "yacht": {
+      "premium": {
+        "value": 5678,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.08,
+          "height": 0.02,
+          "left": 0.13,
+          "top": 0.31
+        },
+        "line": 35
+      }
+    }
+  },
+  "attachments": {
+    "accounts_receivable_or_valuable_papers_glass_and_sign_section": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.4
+      },
+      "line": 44
+    },
+    "statement_or_schedule_of_values": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.41
+      },
+      "line": 45
+    },
+    "additional_interest_schedule": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.42
+      },
+      "line": 46
+    },
+    "hotel_or_motel_supplement": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.43
+      },
+      "line": 47
+    },
+    "state_supplement": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.44
+      },
+      "line": 48
+    },
+    "additional_premises_information_schedule": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.45
+      },
+      "line": 49
+    },
+    "installation_or_builders_risk_section": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.46
+      },
+      "line": 50
+    },
+    "vacant_building_supplement": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.47
+      },
+      "line": 51
+    },
+    "apartment_building_supplement": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.48
+      },
+      "line": 52
+    },
+    "international_liability_exposure_supplement": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.49
+      },
+      "line": 53
+    },
+    "vehicle_schedule": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.5
+      },
+      "line": 54
+    },
+    "condominium_association_bylaws_for_do_coverage_only": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.51
+      },
+      "line": 55
+    },
+    "international_property_exposure_supplement": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.52
+      },
+      "line": 56
+    },
+    "contractors_supplement": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.53
+      },
+      "line": 57
+    },
+    "loss_summary": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.54
+      },
+      "line": 58
+    },
+    "coverages_schedule": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.55
+      },
+      "line": 59
+    },
+    "open_cargo_section": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.56
+      },
+      "line": 60
+    },
+    "dealers_section": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.57
+      },
+      "line": 61
+    },
+    "premium_payment_supplement": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.58
+      },
+      "line": 62
+    },
+    "driver_information_schedule": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.59
+      },
+      "line": 63
+    },
+    "professional_liability_supplement": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.6
+      },
+      "line": 64
+    },
+    "electronic_data_processing_section": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.61
+      },
+      "line": 65
+    },
+    "restaurant_or_tavern_supplement": {
+      "checked": false,
+      "confidence_score": 0.9,
+      "bounding_box": {
+        "width": 0.03,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.62
+      },
+      "line": 66
+    }
+  },
+  "policy_information": {
+    "proposed_effective_date": {
+      "value": "23-09-2023",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.12,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.65
+      },
+      "line": 69
+    },
+    "proposed_expiration_date": {
+      "value": "23-09-2024",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.12,
+        "height": 0.02,
+        "left": 0.13,
+        "top": 0.65
+      },
+      "line": 70
+    },
+    "billing_plan": {
+      "value": "DIRECT",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.1,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.66
+      },
+      "line": 71
+    },
+    "payment_plan": {
+      "value": "AGENCY",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.1,
+        "height": 0.02,
+        "left": 0.13,
+        "top": 0.66
+      },
+      "line": 72
+    },
+    "method_of_payment": {
+      "value": "venmo",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.1,
+        "height": 0.02,
+        "left": 0.25,
+        "top": 0.66
+      },
+      "line": 73
+    },
+    "audit": {
+      "value": "No",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.05,
+        "height": 0.02,
+        "left": 0.37,
+        "top": 0.66
+      },
+      "line": 74
+    },
+    "deposit_premium": {
+      "value": 2345,
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.08,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.67
+      },
+      "line": 75
+    },
+    "minimum_premium": {
+      "value": 7866,
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.08,
+        "height": 0.02,
+        "left": 0.13,
+        "top": 0.67
+      },
+      "line": 76
+    },
+    "policy_premium": {
+      "value": 10000,
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.08,
+        "height": 0.02,
+        "left": 0.25,
+        "top": 0.67
+      },
+      "line": 77
+    }
+  },
+  "applicant_information": {
+    "first_named_insured_name": {
+      "value": "ZXCV",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.1,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.7
+      },
+      "line": 80
+    },
+    "mailing_address": {
+      "value": "12-4, ghc colony, ZA",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.2,
+        "height": 0.02,
+        "left": 0.13,
+        "top": 0.7
+      },
+      "line": 81
+    },
+    "city_state_zip": {
+      "value": "45676",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.08,
+        "height": 0.02,
+        "left": 0.35,
+        "top": 0.7
+      },
+      "line": 82
+    },
+    "gl_code": {
+      "value": "GL09",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.08,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.71
+      },
+      "line": 83
+    },
+    "sic_code": {
+      "value": "SIC456",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.08,
+        "height": 0.02,
+        "left": 0.13,
+        "top": 0.71
+      },
+      "line": 84
+    },
+    "naics_code": {
+      "value": "NAICS456",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.1,
+        "height": 0.02,
+        "left": 0.25,
+        "top": 0.71
+      },
+      "line": 85
+    },
+    "fein_or_soc_sec_number": {
+      "value": "1234567",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.1,
+        "height": 0.02,
+        "left": 0.37,
+        "top": 0.71
+      },
+      "line": 86
+    },
+    "dba_name": {
+      "value": null,
+      "confidence_score": null,
+      "bounding_box": {
+        "width": null,
+        "height": null,
+        "left": null,
+        "top": null
+      },
+      "line": null
+    },
+    "business_phone_number": {
+      "value": "9078887",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.1,
+        "height": 0.02,
+        "left": 0.01,
+        "top": 0.72
+      },
+      "line": 87
+    },
+    "website_address": {
+      "value": "hihello.com",
+      "confidence_score": 0.98,
+      "bounding_box": {
+        "width": 0.12,
+        "height": 0.02,
+        "left": 0.13,
+        "top": 0.72
+      },
+      "line": 88
+    },
+    "entity_type": {
+      "corporation": {
+        "checked": true,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.01,
+          "top": 0.73
+        },
+        "line": 89
+      },
+      "individual": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.05,
+          "top": 0.73
+        },
+        "line": 90
+      },
+      "joint_venture": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.09,
+          "top": 0.73
+        },
+        "line": 91
+      },
+      "limited_liability_company": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.13,
+          "top": 0.73
+        },
+        "line": 92
+      },
+      "not_for_profit_organization": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.17,
+          "top": 0.73
+        },
+        "line": 93
+      },
+      "partnership": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.21,
+          "top": 0.73
+        },
+        "line": 94
+      },
+      "subchapter_s_corporation": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.25,
+          "top": 0.73
+        },
+        "line": 95
+      },
+      "trust": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.29,
+          "top": 0.73
+        },
+        "line": 96
+      },
+      "other": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.33,
+          "top": 0.73
+        },
+        "line": 97
+      },
+      "other_description": {
+        "value": null,
+        "confidence_score": null,
+        "bounding_box": {
+          "width": null,
+          "height": null,
+          "left": null,
+          "top": null
+        },
+        "line": null
+      }
+    },
+    "number_of_members": {
+      "value": null,
+      "confidence_score": null,
+      "bounding_box": {
+        "width": null,
+        "height": null,
+        "left": null,
+        "top": null
+      },
+      "line": null
+    },
+    "number_of_partners": {
+      "value": null,
+      "confidence_score": null,
+      "bounding_box": {
+        "width": null,
+        "height": null,
+        "left": null,
+        "top": null
+      },
+      "line": null
+    },
+    "number_of_employees": {
+      "value": null,
+      "confidence_score": null,
+      "bounding_box": {
+        "width": null,
+        "height": null,
+        "left": null,
+        "top": null
+      },
+      "line": null
+    }
+  },
+  "other_named_insured": {
+    "name": {
+      "value": null,
+      "confidence_score": null,
+      "bounding_box": {
+        "width": null,
+        "height": null,
+        "left": null,
+        "top": null
+      },
+      "line": null
+    },
+    "mailing_address": {
+      "value": null,
+      "confidence_score": null,
+      "bounding_box": {
+        "width": null,
+        "height": null,
+        "left": null,
+        "top": null
+      },
+      "line": null
+    },
+    "city_state_zip": {
+      "value": null,
+      "confidence_score": null,
+      "bounding_box": {
+        "width": null,
+        "height": null,
+        "left": null,
+        "top": null
+      },
+      "line": null
+    },
+    "gl_code": {
+      "value": null,
+      "confidence_score": null,
+      "bounding_box": {
+        "width": null,
+        "height": null,
+        "left": null,
+        "top": null
+      },
+      "line": null
+    },
+    "sic_code": {
+      "value": null,
+      "confidence_score": null,
+      "bounding_box": {
+        "width": null,
+        "height": null,
+        "left": null,
+        "top": null
+      },
+      "line": null
+    },
+    "naics_code": {
+      "value": null,
+      "confidence_score": null,
+      "bounding_box": {
+        "width": null,
+        "height": null,
+        "left": null,
+        "top": null
+      },
+      "line": null
+    },
+    "fein_or_soc_sec_number": {
+      "value": null,
+      "confidence_score": null,
+      "bounding_box": {
+        "width": null,
+        "height": null,
+        "left": null,
+        "top": null
+      },
+      "line": null
+    },
+    "business_phone_number": {
+      "value": null,
+      "confidence_score": null,
+      "bounding_box": {
+        "width": null,
+        "height": null,
+        "left": null,
+        "top": null
+      },
+      "line": null
+    },
+    "website_address": {
+      "value": null,
+      "confidence_score": null,
+      "bounding_box": {
+        "width": null,
+        "height": null,
+        "left": null,
+        "top": null
+      },
+      "line": null
+    },
+    "entity_type": {
+      "corporation": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.01,
+          "top": 0.75
+        },
+        "line": 99
+      },
+      "individual": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.05,
+          "top": 0.75
+        },
+        "line": 100
+      },
+      "joint_venture": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.09,
+          "top": 0.75
+        },
+        "line": 101
+      },
+      "limited_liability_company": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.13,
+          "top": 0.75
+        },
+        "line": 102
+      },
+      "not_for_profit_organization": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.17,
+          "top": 0.75
+        },
+        "line": 103
+      },
+      "partnership": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.21,
+          "top": 0.75
+        },
+        "line": 104
+      },
+      "subchapter_s_corporation": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.25,
+          "top": 0.75
+        },
+        "line": 105
+      },
+      "trust": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.29,
+          "top": 0.75
+        },
+        "line": 106
+      },
+      "other": {
+        "checked": false,
+        "confidence_score": 0.98,
+        "bounding_box": {
+          "width": 0.03,
+          "height": 0.02,
+          "left": 0.33,
+          "top": 0.75
+        },
+        "line": 107
+      },
+      "other_description": {
+        "value": null,
+        "confidence_score": null,
+        "bounding_box": {
+          "width": null,
+          "height": null,
+          "left": null,
+          "top": null
+        },
+        "line": null
+      }
+    }
+  }
+}
