@@ -40,11 +40,6 @@ const normalizeExtractedData = (data) => {
 
 const ExtractedInfoTable = ({ extractedData }) => {
   const pages = normalizeExtractedData(extractedData);
-  const planNameToEmployerMapping = {
-    "Tri-State Manufacturing, Inc. 401(k) Savings Plan": "Tri-State Manufacturing, Inc.",
-    "Knight Train 401(k) Plan": "Knight Train Railroad Company",
-    "Joe Frazier Retirement Plan": "Joe Frazier Corrugated Box Company Inc."
-  };
 
   const getValueByPath = (path) => {
     try {
@@ -54,111 +49,94 @@ const ExtractedInfoTable = ({ extractedData }) => {
         let value = null;
 
         switch (path) {
-          case "employer.name":
-            
-            value = findInPage(page, ["1. EMPLOYER(1.24)", "Name"]);
-            if (!value) {
-              const planName = findInPage(page, ["2. PLAN(1.42)", "Name"]) || 
-                             findInPage(page, ["401(k) Plan Loan Administration Policy", "Plan Name"]);
-              
-              if (planName && planNameToEmployerMapping[planName]) {
-                value = planNameToEmployerMapping[planName];
-              }
-            }
+          case "producer.name":
+            // Map from producer_information.producer_name or company_name
+            value = findInPage(page, ["producer_information", "producer_name"]) ||
+                    findInPage(page, ["producer_information", "company_name"]);
             break;
-          case "employer.tin":
-            value = findInPage(page, ["1. EMPLOYER(1.24)", "Taxpayer Identification Number(TIN)"]) ||
-              findInPage(page, ["1. EMPLOYER(1.24)", "Taxpayer Identification Number(TIN)"]) ||
-              findInPage(page, ["1. EMPLOYER(1.24)", "Taxpayer Identification Number (TIN)"]);
-            break;
-          case "plan.name":
-            value = findInPage(page, ["2. PLAN(1.42)", "Name"]) || findInPage(page, ["401(k) Plan Loan Administration Policy", "Plan Name"]);
-            break;
-          case "plan.plan_number":
-            const planNumber = findInPage(page, ["2. PLAN(1.42)", "Plan number"]) ||
-              findInPage(page, ["plan", "plan_number"]) || findInPage(page, ["401(k) Plan Loan Administration Policy", "Plan Number"]);
-            
-            if (planNumber) {
-              const match = planNumber.match(/^(\d+)/);
-              value = match ? match[1] : planNumber;
-            }
-            break;
-          case "plan.trust_ein":
-            value = findInPage(page, ["2. PLAN(1.42)", "Trust EIN(optional)"]) ||
-              findInPage(page, ["2. PLAN(1.42)", "Trust EIN(optional)"]) ||
-              findInPage(page, ["plan", "trust_ein"]);
-            break;
-          case "plan_year_end":
-           
-            const planYearData = findInPage(page, ["3. PLAN/LIMITATION YEAR(1.44/1.34)", "Plan Year"]) ||
-              findInPage(page, ["plan_year"]);
-            if (planYearData) {
-             
-              if (planYearData["(a) December 31"]?.checked ||
-                planYearData["(a) December 31"]?.checked ||
-                planYearData["(a) December 31"]?.value) {
-                value = "December 31";
-              } else if (planYearData["(b) Fiscal Plan Year"]?.checked) {
-                value = planYearData["(b) Fiscal Plan Year"]?.value || "Fiscal Year";
-              }
-            }
-            
-            if (!value) {
-              value = findInPage(page, ["1. EMPLOYER(1.24)", "Employer's Taxable Year(optional)"]) ||
-                findInPage(page, ["1. EMPLOYER(1.24)", "Employer's Taxable Year(optional)"]);
-            }
-            break;
-          case "execution_page.prototype_plan_sponsor":
           
-            value = findInPage(page, ["6. CONTRIBUTION TYPES(1.12) continued", "(g) SIMPLE 401(k) PAGE "]) ||
-              findInPage(page, ["plan_type"]) ||
-              "401(k)";
+          case "agency_customer_id":
+            // Map from producer_information.producer_code or agency_customer_id
+            value = 
+                    findInPage(page, ["producer_information", "agency_customer_id"]);
             break;
+          
+          case "contact.name":
+            // Map from producer_information.policy_or_program_name
+            value = findInPage(page, ["producer_information", "producer_contact_name"]);
+            break;
+          
+          case "carrier.name":
+            // Map from producer_information.policy_number
+            value = findInPage(page, ["producer_information", "carrier_name"]) ||
+                    findInPage(page, ["producer_information", "carrier_name"]);
+            break;
+          
+          case "underwriter.name":
+           
+            value = findInPage(page, ["producer_information", "underwriter_name"]);
+            break;
+          
+          case "naic.code":
+            // Map from header.date_mm_dd_yyyy
+            value = findInPage(page, ["producer_information", "naic_code"]);
+            break;
+          
+          case "producer.code":
+            // Map from header.form_title or form_identifier
+            value = findInPage(page, ["producer_information", "producer_code"]);
+            break;
+          
           case "plan_product":
-            value = findInPage(page, ["plan_product"]) ||
-              findInPage(page, ["product"]);
+            // Map from producer_information.policy_or_program_name
+            value = findInPage(page, ["producer_information", "policy_or_program_name"]) ||
+                    "Insurance Policy";
             break;
+          
           case "doc_category":
-            value = findInPage(page, ["doc_category"]) ||
-              findInPage(page, ["Document Category"]);
+            // Map from header.form_identifier
+            value = findInPage(page, ["header", "form_identifier"]) ;
             break;
+          
           case "doc_title":
-            value = findInPage(page, ["doc_title"]) ||
-              findInPage(page, ["Document Title"]);
+            // Map from header.form_title
+            value = findInPage(page, ["header", "form_title"]) ;
             break;
-          case "template_id":
-            value = findInPage(page, ["template_id"]);
+             case "date": // Map from header.form_title
+            value = findInPage(page, ["header", "date_mm_dd_yyyy"]) ;
             break;
-          case "template_name":
-            value = findInPage(page, ["template_name"]);
-            break; 
-          case "signature_block.date":
-         
-            value = findInPage(page, ["Signature Block", "Date"]) ||
-              findInPage(page, ["Signature Block", "date"]) ||
-              findInPage(page, ["signature", "date"]) ||
-              findInPage(page, ["trustees_or_custodians", "date"]) || findInPage(page, ["Section 8.01", "Date"]);
+          
+          // case "template_id":
+           
+          //   value = findInPage(page, ["producer_information", "program_code"]) ||
+          //           findInPage(page, ["producer_information", "producer_code"]);
+          //   break;
+          
+          // case "template_name": // Map from header.form_title
+          //   value = findInPage(page, ["header", "form_title"]) ||
+          //           findInPage(page, ["header", "applicant_information_section_label"]);
+          //   break;
+          
+          case "proposed_effective_date":
+            // Map from header.date_mm_dd_yyyy
+            value = findInPage(page, ["policy_information", "proposed_effective_date"]);
             break;
-          case "signature_block.signed":
-           value = findInPage(page, ["Signature Block", "Print Name/Title"]) ||
-              findInPage(page, ["Acceptance by Signatory Employer and Trustee/Custodian", "Signatory Employer", "Print Name/Title"]) ||
-              findInPage(page, ["signature_block", "Print Name/Title"]) ||
-              findInPage(page, ["signature", "Print Name/Title"]) ||
-              findInPage(page, ["signatory_employer", "name"]) || findInPage(page, ["Section 8.01", "Plan Administrator Signature"]);
+          
+          case "billing_plan":
+            // Map from producer_information.producer_contact_name or underwriter_name
+            value = findInPage(page, ["policy_information", "billing_plan"]);
             break;
- 
-          case "effective_dates.initial_effective_date_of_plan":
-            const effectiveDate = findInPage(page, ["4. EFFECTIVE DATE(1.20)", "(c) Initial Effective Date of Plan"]) ||
-              findInPage(page, ["effective_dates", "initial_effective_date_of_plan"]) ||
-              findInPage(page, ["effective_date"]) || findInPage(page, ["Section 8.01", "Date"]);
-            if (effectiveDate) {
-             
-              const dateMatch = effectiveDate.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
-              value = dateMatch ? dateMatch[1] : effectiveDate;
-            }
+             case "policy_premium":
+           
+            value = findInPage(page, ["policy_information", "policy_premium"]);
             break;
+          
+          case "proposed_expiration_date":
+     
+            value = findInPage(page, ["policy_information", "proposed_expiration_date"]);
+            break;
+          
           default:
-            
             const pathArray = path.split(".");
             value = findInPage(page, pathArray);
         }
@@ -173,6 +151,7 @@ const ExtractedInfoTable = ({ extractedData }) => {
       return "";
     }
   };
+
   const findInPage = (pageData, pathArray) => {
     try {
       let current = pageData;
@@ -186,7 +165,7 @@ const ExtractedInfoTable = ({ extractedData }) => {
       }
 
       if (current) {
-       
+        // Handle nested value objects
         if (typeof current === "object") {
           if ("value" in current) return current.value || null;
           if ("checked" in current) return current.checked ? "Yes" : "No";
@@ -205,22 +184,23 @@ const ExtractedInfoTable = ({ extractedData }) => {
 
   const getLabelByKey = (key) => {
     const labelMapping = {
-      "employer.name": "Employer Name",
-      "plan.plan_number": "Plan Number",
-      "plan.name": "Plan Name",
-      "plan_year_end": "Plan Year End",
-      "execution_page.prototype_plan_sponsor": "Plan Type",
-      plan_product: "Product",
-      "employer.tin": "Plan EIN",
-      "plan.trust_ein": "Trust EIN",
+      "producer.name": "Producer",
+      "carrier.name": "Carrier",
+      "contact.name": "Contact Name",
+      "naic.code": "NAIC Code",
+      "producer.code": "Producer Code",
+      plan_product: "Company Policy or Program Name",
+      "agency_customer_id": "Agency Customer ID",
+      "underwriter.name": "Underwriter",
       doc_category: "Document Category",
       doc_title: "Document Title",
       template_id: "Template ID",
       template_name: "Template Name",
-      "signature_block.date": "Signature Date",
-      "signature_block.signed": "Signature",
-      "effective_dates.initial_effective_date_of_plan":
-        "Effective / Service Start Date",
+      "date": "Document Date",
+      "proposed_effective_date": "Proposed Effective Date",
+      "billing_plan": "Billing Plan",
+      "proposed_expiration_date": "Proposed Expiration Date",
+      "policy_premium": "Policy Premium",
     };
 
     return (
@@ -233,89 +213,95 @@ const ExtractedInfoTable = ({ extractedData }) => {
     <ExtractedInfoContainer>
       <HeaderText>
         Please review the key information from the document before committing
-        the data to the plan documents inventory.
+        the data to the IDP feedback system.
       </HeaderText>
-      <SectionHeader>Employer Plan Identification</SectionHeader>
+      <SectionHeader>Applicant Information Section</SectionHeader>
       <StyledTable>
         <tbody>
           <tr>
-            <FirstCol>{getLabelByKey("employer.name")}</FirstCol>
-            <SecondColValue>{getValueByPath("employer.name")}</SecondColValue>
-            <RightLabelCol>{getLabelByKey("plan.plan_number")}</RightLabelCol>
-            <RightValueCol>{getValueByPath("plan.plan_number")}</RightValueCol>
+            <FirstCol>{getLabelByKey("producer.name")}</FirstCol>
+            <SecondColValue>{getValueByPath("producer.name")}</SecondColValue>
+            <RightLabelCol>{getLabelByKey("carrier.name")}</RightLabelCol>
+            <RightValueCol>{getValueByPath("carrier.name")}</RightValueCol>
           </tr>
           <tr>
-            <FirstCol>{getLabelByKey("plan.name")}</FirstCol>
-            <SecondColValue>{getValueByPath("plan.name")}</SecondColValue>
-            <RightLabelCol>{getLabelByKey("plan_year_end")}</RightLabelCol>
-            <RightValueCol>{getValueByPath("plan_year_end")}</RightValueCol>
+            <FirstCol>{getLabelByKey("contact.name")}</FirstCol>
+            <SecondColValue>{getValueByPath("contact.name")}</SecondColValue>
+            <RightLabelCol>{getLabelByKey("naic.code")}</RightLabelCol>
+            <RightValueCol>{getValueByPath("naic.code")}</RightValueCol>
           </tr>
           <tr>
             <FirstCol>
-              {getLabelByKey("execution_page.prototype_plan_sponsor")}
+              {getLabelByKey("producer.code")}
             </FirstCol>
             <SecondColValue>
-              {getValueByPath("execution_page.prototype_plan_sponsor")}
+              {getValueByPath("producer.code")}
             </SecondColValue>
             <RightLabelCol>{getLabelByKey("plan_product")}</RightLabelCol>
             <RightValueCol>{getValueByPath("plan_product")}</RightValueCol>
           </tr>
           <tr>
-            <FirstCol>{getLabelByKey("employer.tin")}</FirstCol>
-            <SecondColValue>{getValueByPath("employer.tin")}</SecondColValue>
-            <RightLabelCol>{getLabelByKey("plan.trust_ein")}</RightLabelCol>
-            <RightValueCol>{getValueByPath("plan.trust_ein")}</RightValueCol>
+            <FirstCol>{getLabelByKey("agency_customer_id")}</FirstCol>
+            <SecondColValue>{getValueByPath("agency_customer_id")}</SecondColValue>
+            <RightLabelCol>{getLabelByKey("underwriter.name")}</RightLabelCol>
+            <RightValueCol>{getValueByPath("underwriter.name")}</RightValueCol>
           </tr>
         </tbody>
       </StyledTable>
-      <SectionHeader>Document/Template Identification</SectionHeader>
+      <SectionHeader>Document Identification</SectionHeader>
       <StyledTable>
         <tbody>
           <tr>
             <FirstCol>{getLabelByKey("doc_category")}</FirstCol>
             <SecondColValue>{getValueByPath("doc_category")}</SecondColValue>
-            {/* <RightLabelCol>{getLabelByKey("plan.plan_number")}</RightLabelCol>
-            <RightValueCol>{getValueByPath("plan.plan_number")}</RightValueCol> */}
+            <td></td>
+            <td></td>
           </tr>
           <tr>
             <FirstCol>{getLabelByKey("doc_title")}</FirstCol>
             <SecondColValue>{getValueByPath("doc_title")}</SecondColValue>
-            {/* <RightLabelCol>{getLabelByKey("plan_year_end")}</RightLabelCol>
-            <RightValueCol>{getValueByPath("plan_year_end")}</RightValueCol> */}
+            <td></td>
+            <td></td>
           </tr>
-          <tr>
+          {/* <tr>
             <FirstCol>{getLabelByKey("template_id")}</FirstCol>
             <SecondColValue>{getValueByPath("template_id")}</SecondColValue>
-            {/* <RightLabelCol>{getLabelByKey("plan_product")}</RightLabelCol>
-            <RightValueCol>{getValueByPath("plan_product")}</RightValueCol> */}
-          </tr>
-          <tr>
+            <td></td>
+            <td></td>
+          </tr> */}
+          {/* <tr>
             <FirstCol>{getLabelByKey("template_name")}</FirstCol>
             <SecondColValue>{getValueByPath("template_name")}</SecondColValue>
+            <td></td>
+            <td></td>
+          </tr> */}
+           <tr>
+            <FirstCol>{getLabelByKey("date")}</FirstCol>
+            <SecondColValue>{getValueByPath("date")}</SecondColValue>
             <td></td>
             <td></td>
           </tr>
         </tbody>
       </StyledTable>
 
-      <SectionHeader>Document Key Dates</SectionHeader>
+      <SectionHeader>Policy Information</SectionHeader>
       <StyledTable>
         <tbody>
           <tr>
-            <FirstCol>{getLabelByKey("signature_block.date")}</FirstCol>
-            <SecondColValue>{getValueByPath("signature_block.date")}</SecondColValue>
-            <RightLabelCol>{getLabelByKey("signature_block.signed")}</RightLabelCol>
-            <SignatureValueCol>{getValueByPath("signature_block.signed")}</SignatureValueCol>
+            <FirstCol>{getLabelByKey("proposed_effective_date")}</FirstCol>
+            <SecondColValue>{getValueByPath("proposed_effective_date")}</SecondColValue>
+            <RightLabelCol>{getLabelByKey("billing_plan")}</RightLabelCol>
+            <SignatureValueCol>{getValueByPath("billing_plan")}</SignatureValueCol>
           </tr>
           <tr>
             <FirstCol>
-              {getLabelByKey("effective_dates.initial_effective_date_of_plan")}
+              {getLabelByKey("proposed_expiration_date")}
             </FirstCol>
             <SecondColValue>
-              {getValueByPath("effective_dates.initial_effective_date_of_plan")}
+              {getValueByPath("proposed_expiration_date")}
             </SecondColValue>
-            <td></td>
-            <td></td>
+             <RightLabelCol>{getLabelByKey("policy_premium")}</RightLabelCol>
+            <SignatureValueCol>{getValueByPath("policy_premium")}</SignatureValueCol>
           </tr>
         </tbody>
       </StyledTable>

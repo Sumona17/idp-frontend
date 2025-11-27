@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Card, Row, Col, Spin, Modal, Select, Collapse,Checkbox,Input } from "antd";
+import { Card, Row, Col, Spin, Modal, Select, Collapse, Checkbox, Input } from "antd";
 import {
   PlusOutlined,
   MinusOutlined,
   DownloadOutlined,
   ExportOutlined,
   CheckCircleOutlined,
+  CloseCircleOutlined,
 } from "@ant-design/icons";
 import * as pdfjsLib from "pdfjs-dist";
 //import * as pdfjsLib from "pdfjs-dist/build/pdf";
@@ -38,6 +39,11 @@ import {
   FieldLabel,
   ConfidenceLabel,
   FieldValue,
+  RejectModalContainer,
+  RejectIcon,
+  RejectTitle,
+  RejectMessage,
+  RejectButton,
   SubFieldsContainer,
   SubFieldItem,
   SubFieldLabel,
@@ -89,6 +95,7 @@ const DataExtractionScreen = ({
   const [isDataExtracting, setIsDataExtracting] = useState(false);
   const [showExtractedData, setShowExtractedData] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showDataNotAccurateModal, setShowDataNotAccurateModal] = useState(false);
   const [textractData, setTextractData] = useState([]);
   const { Panel } = Collapse;
   const { Option } = Select;
@@ -106,207 +113,207 @@ const DataExtractionScreen = ({
     if (score === null || score === undefined) return null;
     return Math.round(score);
   };
- const renderDataField = (label, item, confidenceScore, hasHighlight = false) => {
-  const formattedScore = formatConfidenceScore(confidenceScore);
+  const renderDataField = (label, item, confidenceScore, hasHighlight = false) => {
+    const formattedScore = formatConfidenceScore(confidenceScore);
 
-  // ✅ Detect checkbox: boolean, yes/no, checked/unchecked, true/false, etc.
-  //    OR if value is null but key contains "check"
-  const isCheckboxLike = (key, value) => {
-    if (value === null) {
-      return key.toLowerCase().includes("check"); // NEW RULE
-    }
+    // ✅ Detect checkbox: boolean, yes/no, checked/unchecked, true/false, etc.
+    //    OR if value is null but key contains "check"
+    const isCheckboxLike = (key, value) => {
+      if (value === null) {
+        return key.toLowerCase().includes("check"); // NEW RULE
+      }
 
-    if (typeof value === "boolean") return true;
+      if (typeof value === "boolean") return true;
 
-    if (typeof value === "string") {
-      const normalized = value.trim().toLowerCase();
+      if (typeof value === "string") {
+        const normalized = value.trim().toLowerCase();
+        return (
+          normalized === "yes" ||
+          // normalized === "no" ||
+          normalized === "checked" ||
+          normalized === "unchecked" ||
+          normalized === "true" ||
+          normalized === "false" ||
+          normalized === "n/a" ||
+          normalized === "na"
+        );
+      }
+
+      return false;
+    };
+
+    // ✅ Identify all checkbox keys
+    const checkboxKeys = Object.keys(item).filter((key) => {
+      if (["confidence_score", "bounding_box", "line"].includes(key)) return false;
+      return isCheckboxLike(key, item[key]);
+    });
+
+    // ✅ Identify all input keys (null included)
+    const valueKeys = Object.keys(item).filter(
+      (key) =>
+        !checkboxKeys.includes(key) &&
+        key !== "confidence_score" &&
+        key !== "bounding_box" &&
+        key !== "line" &&
+        typeof item[key] !== "object" // null becomes input automatically
+    );
+
+    // Handlers
+    const handleCheckboxChange = (key, e) => {
+      item[key] = e.target.checked;
+    };
+
+    const handleInputChange = (key, e) => {
+      item[key] = e.target.value;
+    };
+
+    const getDisplayValue = (key) => {
+      const value = item[key];
+      if (Array.isArray(value)) return `Contains ${value.length} items`;
+      if (typeof value === "object" && value !== null) {
+        return value.text || value.value || JSON.stringify(value);
+      }
+      return String(value ?? "").trim();
+    };
+
+    // ☑ Converts string/null/boolean to checkbox checked/unchecked
+    const toCheckedValue = (val) => {
+      if (val === null) return false; // NEW RULE: null checkbox → unchecked
+      if (typeof val === "boolean") return val;
+
+      const normalized = String(val ?? "").trim().toLowerCase();
       return (
         normalized === "yes" ||
-        // normalized === "no" ||
         normalized === "checked" ||
-        normalized === "unchecked" ||
-        normalized === "true" ||
-        normalized === "false" ||
-        normalized === "n/a" ||
-        normalized === "na"
+        normalized === "true"
       );
-    }
+    };
 
-    return false;
-  };
-
-  // ✅ Identify all checkbox keys
-  const checkboxKeys = Object.keys(item).filter((key) => {
-    if (["confidence_score", "bounding_box", "line"].includes(key)) return false;
-    return isCheckboxLike(key, item[key]);
-  });
-
-  // ✅ Identify all input keys (null included)
-  const valueKeys = Object.keys(item).filter(
-    (key) =>
-      !checkboxKeys.includes(key) &&
-      key !== "confidence_score" &&
-      key !== "bounding_box" &&
-      key !== "line" &&
-      typeof item[key] !== "object" // null becomes input automatically
-  );
-
-  // Handlers
-  const handleCheckboxChange = (key, e) => {
-    item[key] = e.target.checked;
-  };
-
-  const handleInputChange = (key, e) => {
-    item[key] = e.target.value;
-  };
-
-  const getDisplayValue = (key) => {
-    const value = item[key];
-    if (Array.isArray(value)) return `Contains ${value.length} items`;
-    if (typeof value === "object" && value !== null) {
-      return value.text || value.value || JSON.stringify(value);
-    }
-    return String(value ?? "").trim();
-  };
-
-  // ☑ Converts string/null/boolean to checkbox checked/unchecked
-  const toCheckedValue = (val) => {
-    if (val === null) return false; // NEW RULE: null checkbox → unchecked
-    if (typeof val === "boolean") return val;
-
-    const normalized = String(val ?? "").trim().toLowerCase();
     return (
-      normalized === "yes" ||
-      normalized === "checked" ||
-      normalized === "true"
+      <DataFieldContainer hasHighlight={hasHighlight}>
+        {/* Header Row */}
+        <Row gutter={[16, 4]}>
+          <Col span={14}>
+            <FieldLabel>{label}</FieldLabel>
+          </Col>
+          <Col span={10}>
+            {formattedScore !== null && (
+              <ConfidenceLabel>
+                Confidence Score: {formattedScore}%
+              </ConfidenceLabel>
+            )}
+          </Col>
+        </Row>
+
+        {/* Content Rows */}
+        <Row gutter={[16, 4]} align="middle" wrap>
+          {/* Render Checkboxes */}
+          {checkboxKeys.map((key) => (
+            <Col key={key} flex="none">
+              <Checkbox
+                checked={toCheckedValue(item[key])}
+                onChange={(e) => handleCheckboxChange(key, e)}
+              >
+                {key.charAt(0).toUpperCase() + key.slice(1)}
+              </Checkbox>
+            </Col>
+          ))}
+
+          {/* Render Input Fields */}
+          {valueKeys.map((key) => (
+            <Col key={key} flex="auto">
+              <Input
+                defaultValue={getDisplayValue(key)}
+                onChange={(e) => handleInputChange(key, e)}
+                placeholder={`Enter ${key}`}
+              />
+            </Col>
+          ))}
+        </Row>
+      </DataFieldContainer>
     );
   };
 
-  return (
-    <DataFieldContainer hasHighlight={hasHighlight}>
-      {/* Header Row */}
-      <Row gutter={[16, 4]}>
-        <Col span={14}>
-          <FieldLabel>{label}</FieldLabel>
-        </Col>
-        <Col span={10}>
-          {formattedScore !== null && (
-            <ConfidenceLabel>
-              Confidence Score: {formattedScore}%
-            </ConfidenceLabel>
-          )}
-        </Col>
-      </Row>
 
-      {/* Content Rows */}
-      <Row gutter={[16, 4]} align="middle" wrap>
-        {/* Render Checkboxes */}
-        {checkboxKeys.map((key) => (
-          <Col key={key} flex="none">
-            <Checkbox
-              checked={toCheckedValue(item[key])}
-              onChange={(e) => handleCheckboxChange(key, e)}
-            >
-              {key.charAt(0).toUpperCase() + key.slice(1)}
-            </Checkbox>
-          </Col>
-        ))}
+  //   const renderDataField = (label, item, confidenceScore, hasHighlight = false) => {
+  //   const formattedScore = formatConfidenceScore(confidenceScore);
 
-        {/* Render Input Fields */}
-        {valueKeys.map((key) => (
-          <Col key={key} flex="auto">
-            <Input
-              defaultValue={getDisplayValue(key)}
-              onChange={(e) => handleInputChange(key, e)}
-              placeholder={`Enter ${key}`}
-            />
-          </Col>
-        ))}
-      </Row>
-    </DataFieldContainer>
-  );
-};
+  //   // Identify all boolean flags (potential checkboxes)
+  //   const checkboxKeys = Object.keys(item).filter(
+  //     (key) => typeof item[key] === "boolean"
+  //   );
 
+  //   // Identify value fields (strings, numbers, nested objects)
+  //   const valueKeys = Object.keys(item).filter(
+  //     (key) =>
+  //       !checkboxKeys.includes(key) &&
+  //       key !== "confidence_score" &&
+  //       key !== "bounding_box" &&
+  //       key !== "line" &&
+  //       typeof item[key] !== "object"
+  //   );
 
-//   const renderDataField = (label, item, confidenceScore, hasHighlight = false) => {
-//   const formattedScore = formatConfidenceScore(confidenceScore);
+  //   const handleCheckboxChange = (key, e) => {
+  //     item[key] = e.target.checked;
+  //   };
 
-//   // Identify all boolean flags (potential checkboxes)
-//   const checkboxKeys = Object.keys(item).filter(
-//     (key) => typeof item[key] === "boolean"
-//   );
+  //   const handleInputChange = (key, e) => {
+  //     item[key] = e.target.value;
+  //   };
 
-//   // Identify value fields (strings, numbers, nested objects)
-//   const valueKeys = Object.keys(item).filter(
-//     (key) =>
-//       !checkboxKeys.includes(key) &&
-//       key !== "confidence_score" &&
-//       key !== "bounding_box" &&
-//       key !== "line" &&
-//       typeof item[key] !== "object"
-//   );
+  //   const getDisplayValue = (key) => {
+  //     const value = item[key];
+  //     if (Array.isArray(value)) return `Contains ${value.length} items`;
+  //     if (typeof value === "object" && value !== null) {
+  //       return value.text || value.value || JSON.stringify(value);
+  //     }
+  //     return String(value ?? "").trim();
+  //   };
 
-//   const handleCheckboxChange = (key, e) => {
-//     item[key] = e.target.checked;
-//   };
+  //   return (
+  //     <DataFieldContainer hasHighlight={hasHighlight}>
+  //       {/* Header Row */}
+  //       <Row gutter={[16, 4]}>
+  //         <Col span={14}>
+  //           <FieldLabel>{label}</FieldLabel>
+  //         </Col>
+  //         <Col span={10}>
+  //           {formattedScore !== null && (
+  //             <ConfidenceLabel>
+  //               Confidence Score: {formattedScore}%
+  //             </ConfidenceLabel>
+  //           )}
+  //         </Col>
+  //       </Row>
 
-//   const handleInputChange = (key, e) => {
-//     item[key] = e.target.value;
-//   };
+  //       {/* Content Rows */}
+  //       <Row gutter={[16, 4]} align="middle" wrap>
+  //         {/* Render all checkboxes */}
+  //         {checkboxKeys.map((key) => (
+  //           <Col key={key} flex="none">
+  //             <Checkbox
+  //               checked={!!item[key]}
+  //               onChange={(e) => handleCheckboxChange(key, e)}
+  //             >
+  //               {key.charAt(0).toUpperCase() + key.slice(1)}
+  //             </Checkbox>
+  //           </Col>
+  //         ))}
 
-//   const getDisplayValue = (key) => {
-//     const value = item[key];
-//     if (Array.isArray(value)) return `Contains ${value.length} items`;
-//     if (typeof value === "object" && value !== null) {
-//       return value.text || value.value || JSON.stringify(value);
-//     }
-//     return String(value ?? "").trim();
-//   };
-
-//   return (
-//     <DataFieldContainer hasHighlight={hasHighlight}>
-//       {/* Header Row */}
-//       <Row gutter={[16, 4]}>
-//         <Col span={14}>
-//           <FieldLabel>{label}</FieldLabel>
-//         </Col>
-//         <Col span={10}>
-//           {formattedScore !== null && (
-//             <ConfidenceLabel>
-//               Confidence Score: {formattedScore}%
-//             </ConfidenceLabel>
-//           )}
-//         </Col>
-//       </Row>
-
-//       {/* Content Rows */}
-//       <Row gutter={[16, 4]} align="middle" wrap>
-//         {/* Render all checkboxes */}
-//         {checkboxKeys.map((key) => (
-//           <Col key={key} flex="none">
-//             <Checkbox
-//               checked={!!item[key]}
-//               onChange={(e) => handleCheckboxChange(key, e)}
-//             >
-//               {key.charAt(0).toUpperCase() + key.slice(1)}
-//             </Checkbox>
-//           </Col>
-//         ))}
-
-//         {/* Render all input fields */}
-//         {valueKeys.map((key) => (
-//           <Col key={key} flex="auto">
-//             <Input
-//               defaultValue={getDisplayValue(key)}
-//               onChange={(e) => handleInputChange(key, e)}
-//               placeholder={`Enter ${key}`}
-//             />
-//           </Col>
-//         ))}
-//       </Row>
-//     </DataFieldContainer>
-//   );
-// };
+  //         {/* Render all input fields */}
+  //         {valueKeys.map((key) => (
+  //           <Col key={key} flex="auto">
+  //             <Input
+  //               defaultValue={getDisplayValue(key)}
+  //               onChange={(e) => handleInputChange(key, e)}
+  //               placeholder={`Enter ${key}`}
+  //             />
+  //           </Col>
+  //         ))}
+  //       </Row>
+  //     </DataFieldContainer>
+  //   );
+  // };
 
   const getHighlightColor = (confidenceScore) => {
     if (!confidenceScore || confidenceScore < CONFIDENCE_THRESHOLD) {
@@ -565,59 +572,59 @@ const DataExtractionScreen = ({
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
   };
-  
-const getDisplayValue = (item) => {
-  const hasValue = item.value !== null && item.value !== undefined;
-  const hasChecked = Object.prototype.hasOwnProperty.call(item, "checked");
-  const hasSelectedFlag = Object.prototype.hasOwnProperty.call(item, "selected");
-  let displayValue = "";
 
-  // 🧩 Skip for any checkbox/selected field (nested or top-level)
-  if (
-    hasSelectedFlag ||
-    (item.label && item.label.toLowerCase().includes("selected"))
-  ) {
-    return ""; // ✅ Don't show "[X]" or any text below checkbox
-  }
+  const getDisplayValue = (item) => {
+    const hasValue = item.value !== null && item.value !== undefined;
+    const hasChecked = Object.prototype.hasOwnProperty.call(item, "checked");
+    const hasSelectedFlag = Object.prototype.hasOwnProperty.call(item, "selected");
+    let displayValue = "";
 
-  if (hasValue) {
-    if (Array.isArray(item.value)) {
-      return ""; // skip arrays — handled separately
-    } else {
-      let cleanedValue;
-      if (typeof item.value === "object" && item.value !== null) {
-        if (item.value.text) {
-          cleanedValue = cleanText(item.value.text);
-        } else if (item.value.value) {
-          cleanedValue = cleanText(item.value.value);
+    // 🧩 Skip for any checkbox/selected field (nested or top-level)
+    if (
+      hasSelectedFlag ||
+      (item.label && item.label.toLowerCase().includes("selected"))
+    ) {
+      return ""; // ✅ Don't show "[X]" or any text below checkbox
+    }
+
+    if (hasValue) {
+      if (Array.isArray(item.value)) {
+        return ""; // skip arrays — handled separately
+      } else {
+        let cleanedValue;
+        if (typeof item.value === "object" && item.value !== null) {
+          if (item.value.text) {
+            cleanedValue = cleanText(item.value.text);
+          } else if (item.value.value) {
+            cleanedValue = cleanText(item.value.value);
+          } else {
+            cleanedValue = JSON.stringify(item.value);
+          }
         } else {
-          cleanedValue = JSON.stringify(item.value);
+          cleanedValue = cleanText(item.value);
         }
-      } else {
-        cleanedValue = cleanText(item.value);
-      }
 
-      if (cleanedValue === "0" || cleanedValue.trim() === "") {
-        displayValue = "";
-      } else {
-        displayValue = cleanedValue;
+        if (cleanedValue === "0" || cleanedValue.trim() === "") {
+          displayValue = "";
+        } else {
+          displayValue = cleanedValue;
+        }
       }
     }
-  }
 
-  return displayValue;
-};
+    return displayValue;
+  };
 
 
-const handleCheckboxChange = (checked) => {
-  // Update your state/data with the new checked value
-  // e.g., updateField(fieldKey, { ...item, checked });
-};
+  const handleCheckboxChange = (checked) => {
+    // Update your state/data with the new checked value
+    // e.g., updateField(fieldKey, { ...item, checked });
+  };
 
-const handleValueChange = (newValue) => {
-  // Update your state/data with the new value
-  // e.g., updateField(fieldKey, { ...item, value: newValue });
-};
+  const handleValueChange = (newValue) => {
+    // Update your state/data with the new value
+    // e.g., updateField(fieldKey, { ...item, value: newValue });
+  };
   // const getDisplayValue = (item) => {
   //   const hasValue = item.value !== null && item.value !== undefined;
   //   const hasChecked = Object.prototype.hasOwnProperty.call(item, "checked");
@@ -814,7 +821,7 @@ const handleValueChange = (newValue) => {
             displayScale: currentScale,
           };
         } catch (error) {
-          console.log("error",error)
+          console.log("error", error)
           // if (error.name !== "RenderingCancelledException") {
           // }
         }
@@ -987,55 +994,56 @@ const handleValueChange = (newValue) => {
     setZoomLevel(value);
   };
 
-  const handleExportData = () => {};
+  const handleExportData = () => { };
 
-  const handleDownload = () => {};
+  const handleDownload = () => {
+    // Create the download data object
+    const downloadData = {
+      fileName: uploadedFileName || "extracted_data",
+      extractedData: apiExtractedData || textractData,
+      timestamp: new Date().toISOString(),
+      totalPages: totalPages,
+      totalDataFields: totalDataFields
+    };
+
+    // Convert to JSON string
+    const jsonString = JSON.stringify(downloadData, null, 2);
+
+    // Create a blob and download link
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${downloadData.fileName}_extracted_data.json`;
+
+    // Trigger download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
 
   const handleSaveToDocumentInventory = () => {
     setShowSuccessModal(true);
   };
 
   const handleViewTestAccuracy = () => {
-    const submissionId =
-      storedFileData?.submissionId ||
-      storedFileData?.submission_id ||
-      apiExtractedData?.submission_id ||
-      apiExtractedData?.submissionId;
-
-    if (!submissionId) {
-      console.error("No submission ID available for document creation");
-      alert("Submission ID not found. Cannot proceed.");
-      return;
-    }
-
-    const documentData = {
-      submission_id: submissionId,
-      submissionId: submissionId,
-      documentName: uploadedFileName || "Extracted Document",
-      template: "Data Extraction Template",
-      documentType: "PDF",
-      category: "Data Extraction",
-      fileSize: uploadedFile
-        ? `${(uploadedFile.size / 1024 / 1024).toFixed(2)} MB`
-        : "N/A",
-      tags: ["Extracted", "Data Extraction", "New"],
-      description: `Document processed through data extraction with ${totalDataFields} fields extracted`,
-      extractedData: textractData,
-      expirationDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
-        .toISOString()
-        .split("T")[0],
-    };
-
-   // dispatch(addNewDocument(documentData));
-   addNewDocument(documentData)
     setShowSuccessModal(false);
+  };
+  const handleDataNotAccurateClose = () => {
+    setShowDataNotAccurateModal(false);
+  };
+   const handleDataNotAccurate = () => {
+    setShowDataNotAccurateModal(true);
+  };
 
-    setTimeout(() => {
-      navigate(-1);
-    }, 300);
+  const handleDataNotAccurateContinue = () => {
+    setShowDataNotAccurateModal(false);
+
   };
   const handleModalClose = () => {
     setShowSuccessModal(false);
+    setShowDataNotAccurateModal(false);
   };
 
   useEffect(() => {
@@ -1244,8 +1252,8 @@ const handleValueChange = (newValue) => {
                       selectedItemKey === fieldKey_unique
                         ? "#e6f7ff"
                         : hasHighlight
-                        ? "#f8f9fa"
-                        : "#fafafa",
+                          ? "#f8f9fa"
+                          : "#fafafa",
                     border:
                       selectedItemKey === fieldKey_unique
                         ? "2px solid #1890ff"
@@ -1256,9 +1264,9 @@ const handleValueChange = (newValue) => {
                     transition: "all 0.2s ease",
                     ":hover": hasHighlight
                       ? {
-                          backgroundColor: "#e6f7ff",
-                          borderColor: "#1890ff",
-                        }
+                        backgroundColor: "#e6f7ff",
+                        borderColor: "#1890ff",
+                      }
                       : {},
                   }}
                 >
@@ -1683,321 +1691,321 @@ const handleValueChange = (newValue) => {
   //   return items;
   // };
   // Update the renderDataStructure function
-const renderDataStructure = (data, path = "", page = null, depth = 0) => {
-  const items = [];
-  let fieldIndex = 0;
+  const renderDataStructure = (data, path = "", page = null, depth = 0) => {
+    const items = [];
+    let fieldIndex = 0;
 
-  Object.entries(data).forEach(([key, value], entryIndex) => {
-    const currentPath = path ? `${path}.${key}` : key;
+    Object.entries(data).forEach(([key, value], entryIndex) => {
+      const currentPath = path ? `${path}.${key}` : key;
 
-    if (value && typeof value === "object" && !Array.isArray(value)) {
-      const hasValue = Object.prototype.hasOwnProperty.call(value, "value");
-      const hasChecked = Object.prototype.hasOwnProperty.call(value, "checked");
-      const hasConfidence = Object.prototype.hasOwnProperty.call(
-        value,
-        "confidence_score"
-      );
-      const hasBoundingBox = Object.prototype.hasOwnProperty.call(
-        value,
-        "bounding_box"
-      );
-      const hasLine = Object.prototype.hasOwnProperty.call(value, "line");
+      if (value && typeof value === "object" && !Array.isArray(value)) {
+        const hasValue = Object.prototype.hasOwnProperty.call(value, "value");
+        const hasChecked = Object.prototype.hasOwnProperty.call(value, "checked");
+        const hasConfidence = Object.prototype.hasOwnProperty.call(
+          value,
+          "confidence_score"
+        );
+        const hasBoundingBox = Object.prototype.hasOwnProperty.call(
+          value,
+          "bounding_box"
+        );
+        const hasLine = Object.prototype.hasOwnProperty.call(value, "line");
 
-      // NEW: detect nested format: { subtitle: { value }, premium: { value } }
-      const isNestedValueField = Object.values(value).some(
-        (v) =>
-          v &&
-          typeof v === "object" &&
-          !Array.isArray(v) &&
-          Object.prototype.hasOwnProperty.call(v, "value")
-      );
+        // NEW: detect nested format: { subtitle: { value }, premium: { value } }
+        const isNestedValueField = Object.values(value).some(
+          (v) =>
+            v &&
+            typeof v === "object" &&
+            !Array.isArray(v) &&
+            Object.prototype.hasOwnProperty.call(v, "value")
+        );
 
-      const isDirectField =
-        hasValue || hasChecked || hasConfidence || hasBoundingBox || hasLine;
+        const isDirectField =
+          hasValue || hasChecked || hasConfidence || hasBoundingBox || hasLine;
 
-      const isSubSection = isSubSectionHeader(key, value);
+        const isSubSection = isSubSectionHeader(key, value);
 
-      // --- FIELD RENDERING (DIRECT OR NESTED) ---
-      if (isDirectField || isNestedValueField) {
-        const hasHighlight = hasValidBoundingBox(value.bounding_box);
-        const itemKey = `${page}-${currentPath}`;
-        const displayValue = getDisplayValue(value);
-        const contributionFlags = getContributionTypeFlags(value);
-        const confidenceScore = value.confidence_score;
-        const fieldMarker =
-          depth === 0 || depth === 1 ? " " : `(${fieldIndex + 1})`;
+        // --- FIELD RENDERING (DIRECT OR NESTED) ---
+        if (isDirectField || isNestedValueField) {
+          const hasHighlight = hasValidBoundingBox(value.bounding_box);
+          const itemKey = `${page}-${currentPath}`;
+          const displayValue = getDisplayValue(value);
+          const contributionFlags = getContributionTypeFlags(value);
+          const confidenceScore = value.confidence_score;
+          const fieldMarker =
+            depth === 0 || depth === 1 ? " " : `(${fieldIndex + 1})`;
 
-        const shouldRender =
-          displayValue ||
-          contributionFlags.length > 0 ||
-          hasChecked ||
-          hasConfidence ||
-          hasBoundingBox ||
-          isNestedValueField;
+          const shouldRender =
+            displayValue ||
+            contributionFlags.length > 0 ||
+            hasChecked ||
+            hasConfidence ||
+            hasBoundingBox ||
+            isNestedValueField;
 
-        if (shouldRender) {
-          const isArrayValue =
-            hasValue && Array.isArray(value.value) && value.value.length > 0;
+          if (shouldRender) {
+            const isArrayValue =
+              hasValue && Array.isArray(value.value) && value.value.length > 0;
 
-          const standardProps = [
-            "value",
-            "checked",
-            "confidence_score",
-            "bounding_box",
-            "line",
-          ];
+            const standardProps = [
+              "value",
+              "checked",
+              "confidence_score",
+              "bounding_box",
+              "line",
+            ];
 
-          const nestedFieldEntries = Object.entries(value).filter(
-            ([nestedKey]) => !standardProps.includes(nestedKey)
-          );
+            const nestedFieldEntries = Object.entries(value).filter(
+              ([nestedKey]) => !standardProps.includes(nestedKey)
+            );
 
-          const itemStyle = {
-            cursor: hasHighlight ? "pointer" : "default",
-            opacity: hasHighlight ? 1 : 0.8,
-            padding: "8px",
-            marginBottom: "8px",
-            marginLeft: depth > 0 ? "12px" : "0px",
-            backgroundColor:
-              selectedItemKey === itemKey
-                ? confidenceScore !== null &&
-                  confidenceScore !== undefined &&
-                  confidenceScore < CONFIDENCE_THRESHOLD
-                  ? "#fedfddff"
-                  : "#e6f7ff"
-                : "transparent",
-            border:
-              selectedItemKey === itemKey
-                ? confidenceScore !== null &&
-                  confidenceScore !== undefined &&
-                  confidenceScore < CONFIDENCE_THRESHOLD
-                  ? "2px solid #FF0000"
-                  : "2px solid #1890ff"
-                : "none",
-            borderRadius: selectedItemKey === itemKey ? "4px" : "0px",
-            transition: "all 0.2s ease",
-          };
+            const itemStyle = {
+              cursor: hasHighlight ? "pointer" : "default",
+              opacity: hasHighlight ? 1 : 0.8,
+              padding: "8px",
+              marginBottom: "8px",
+              marginLeft: depth > 0 ? "12px" : "0px",
+              backgroundColor:
+                selectedItemKey === itemKey
+                  ? confidenceScore !== null &&
+                    confidenceScore !== undefined &&
+                    confidenceScore < CONFIDENCE_THRESHOLD
+                    ? "#fedfddff"
+                    : "#e6f7ff"
+                  : "transparent",
+              border:
+                selectedItemKey === itemKey
+                  ? confidenceScore !== null &&
+                    confidenceScore !== undefined &&
+                    confidenceScore < CONFIDENCE_THRESHOLD
+                    ? "2px solid #FF0000"
+                    : "2px solid #1890ff"
+                  : "none",
+              borderRadius: selectedItemKey === itemKey ? "4px" : "0px",
+              transition: "all 0.2s ease",
+            };
 
-          const fieldLabel = `${fieldMarker} ${formatFieldName(key)}`;
+            const fieldLabel = `${fieldMarker} ${formatFieldName(key)}`;
 
-          const renderedField = renderDataField(
-            fieldLabel,
-            value,
-            confidenceScore,
-            hasHighlight
-          );
+            const renderedField = renderDataField(
+              fieldLabel,
+              value,
+              confidenceScore,
+              hasHighlight
+            );
 
-          items.push(
-            <DataItem
-              key={itemKey}
-              isSelected={selectedItemKey === itemKey}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleClickHighlight(
-                  itemKey,
-                  value.bounding_box,
-                  page,
-                  confidenceScore
-                );
-              }}
-              style={itemStyle}
-            >
-              {renderedField}
-
-              {/* Render Arrays */}
-              {isArrayValue && (
-                <SubFieldsContainer>
-                  <div
-                    style={{
-                      fontSize: "13px",
-                      fontWeight: "500",
-                      color: "#333",
-                      marginBottom: "8px",
-                      paddingTop: "4px",
-                    }}
-                  >
-                    Array Items ({value.value.length}):
-                  </div>
-                  {renderArraySubFields(
-                    value.value,
-                    currentPath,
+            items.push(
+              <DataItem
+                key={itemKey}
+                isSelected={selectedItemKey === itemKey}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleClickHighlight(
+                    itemKey,
+                    value.bounding_box,
                     page,
-                    fieldIndex
-                  )}
-                </SubFieldsContainer>
-              )}
-
-              {/* Render nested key-value fields */}
-              {!isArrayValue && nestedFieldEntries.length > 0 && (
-                <SubFieldsContainer style={{ marginTop: "8px" }}>
-                  {nestedFieldEntries.map(
-                    ([nestedKey, nestedValue], nestedIndex) => {
-                      if (nestedValue && typeof nestedValue === "object") {
-                        const nestedItems = renderDataStructure(
-                          { [nestedKey]: nestedValue },
-                          currentPath,
-                          page,
-                          depth + 1,
-                          nestedIndex
-                        );
-                        return (
-                          <div
-                            key={`nested-${nestedIndex}`}
-                            style={{ marginBottom: "4px" }}
-                          >
-                            {nestedItems}
-                          </div>
-                        );
-                      }
-                      return null;
-                    }
-                  )}
-                </SubFieldsContainer>
-              )}
-
-              {/* Contribution flags */}
-              {contributionFlags.length > 0 && (
-                <ContributionFlagsContainer>
-                  {contributionFlags.map((flag, flagIndex) => (
-                    <ContributionFlag key={flagIndex}>
-                      {toSafeString(flag)}
-                    </ContributionFlag>
-                  ))}
-                </ContributionFlagsContainer>
-              )}
-            </DataItem>
-          );
-
-          fieldIndex++;
-        }
-      }
-
-      // --- SUBSECTION HANDLING ---
-      else if (isSubSection) {
-        const subSectionKey = `${page}-${currentPath}-subsection`;
-        const subSectionItems = renderDataStructure(
-          value,
-          currentPath,
-          page,
-          depth + 1
-        );
-
-        if (subSectionItems.length > 0) {
-          items.push(
-            <div key={subSectionKey} style={{ marginBottom: "16px" }}>
-              <div
-                style={{
-                  fontSize: "13px",
-                  fontWeight: "700",
-                  marginBottom: "8px",
-                  color: "#212121",
-                  paddingTop: "8px",
-                  paddingBottom: "8px",
-                  borderRadius: "4px",
-                  marginLeft: depth > 0 ? "12px" : "0px",
+                    confidenceScore
+                  );
                 }}
+                style={itemStyle}
               >
-                {formatFieldName(key)}
-              </div>
+                {renderedField}
 
-              <div
-                style={{
-                  marginLeft: depth > 0 ? "24px" : "12px",
-                  paddingLeft: "2px",
-                }}
-              >
-                {subSectionItems}
-              </div>
-            </div>
-          );
-        }
-      }
-
-      // --- REGULAR NESTED OBJECT ---
-      else {
-        const nestedItems = renderDataStructure(
-          value,
-          currentPath,
-          page,
-          depth,
-          entryIndex
-        );
-        items.push(...nestedItems);
-      }
-    }
-
-    // --- ARRAY HANDLING ---
-    else if (Array.isArray(value)) {
-      const fieldMarker =
-        depth === 0 || depth === 1
-          ? `(${String.fromCharCode(97 + fieldIndex)})`
-          : `(${fieldIndex + 1})`;
-
-      items.push(
-        <DataItem
-          key={`${page}-${currentPath}-array`}
-          style={{
-            padding: "8px",
-            marginBottom: "8px",
-            borderLeft: depth > 0 ? "3px solid #e8e8e8" : "none",
-            marginLeft: depth > 0 ? "12px" : "0px",
-          }}
-        >
-          <DataFieldContainer>
-            <Row gutter={[16, 4]}>
-              <Col span={14}>
-                <FieldLabel>
-                  {fieldMarker} {formatFieldName(key)}
-                </FieldLabel>
-              </Col>
-              <Col span={10}>
-                <ConfidenceLabel>Array with {value.length} items</ConfidenceLabel>
-              </Col>
-            </Row>
-          </DataFieldContainer>
-
-          <SubFieldsContainer>
-            {value.map((arrayItem, arrayIndex) => {
-              if (arrayItem && typeof arrayItem === "object") {
-                const arrayItems = renderDataStructure(
-                  arrayItem,
-                  `${currentPath}[${arrayIndex}]`,
-                  page,
-                  depth + 1,
-                  arrayIndex
-                );
-                return (
-                  <div
-                    key={`array-item-${arrayIndex}`}
-                    style={{
-                      marginBottom: "8px",
-                      padding: "6px",
-                    }}
-                  >
+                {/* Render Arrays */}
+                {isArrayValue && (
+                  <SubFieldsContainer>
                     <div
                       style={{
-                        fontSize: "12px",
-                        fontWeight: "600",
-                        marginBottom: "4px",
+                        fontSize: "13px",
+                        fontWeight: "500",
+                        color: "#333",
+                        marginBottom: "8px",
+                        paddingTop: "4px",
                       }}
                     >
-                      Item {arrayIndex + 1}
+                      Array Items ({value.value.length}):
                     </div>
-                    {arrayItems}
-                  </div>
-                );
-              }
-              return null;
-            })}
-          </SubFieldsContainer>
-        </DataItem>
-      );
+                    {renderArraySubFields(
+                      value.value,
+                      currentPath,
+                      page,
+                      fieldIndex
+                    )}
+                  </SubFieldsContainer>
+                )}
 
-      fieldIndex++;
-    }
-  });
+                {/* Render nested key-value fields */}
+                {!isArrayValue && nestedFieldEntries.length > 0 && (
+                  <SubFieldsContainer style={{ marginTop: "8px" }}>
+                    {nestedFieldEntries.map(
+                      ([nestedKey, nestedValue], nestedIndex) => {
+                        if (nestedValue && typeof nestedValue === "object") {
+                          const nestedItems = renderDataStructure(
+                            { [nestedKey]: nestedValue },
+                            currentPath,
+                            page,
+                            depth + 1,
+                            nestedIndex
+                          );
+                          return (
+                            <div
+                              key={`nested-${nestedIndex}`}
+                              style={{ marginBottom: "4px" }}
+                            >
+                              {nestedItems}
+                            </div>
+                          );
+                        }
+                        return null;
+                      }
+                    )}
+                  </SubFieldsContainer>
+                )}
 
-  return items;
-};
+                {/* Contribution flags */}
+                {contributionFlags.length > 0 && (
+                  <ContributionFlagsContainer>
+                    {contributionFlags.map((flag, flagIndex) => (
+                      <ContributionFlag key={flagIndex}>
+                        {toSafeString(flag)}
+                      </ContributionFlag>
+                    ))}
+                  </ContributionFlagsContainer>
+                )}
+              </DataItem>
+            );
+
+            fieldIndex++;
+          }
+        }
+
+        // --- SUBSECTION HANDLING ---
+        else if (isSubSection) {
+          const subSectionKey = `${page}-${currentPath}-subsection`;
+          const subSectionItems = renderDataStructure(
+            value,
+            currentPath,
+            page,
+            depth + 1
+          );
+
+          if (subSectionItems.length > 0) {
+            items.push(
+              <div key={subSectionKey} style={{ marginBottom: "16px" }}>
+                <div
+                  style={{
+                    fontSize: "13px",
+                    fontWeight: "700",
+                    marginBottom: "8px",
+                    color: "#212121",
+                    paddingTop: "8px",
+                    paddingBottom: "8px",
+                    borderRadius: "4px",
+                    marginLeft: depth > 0 ? "12px" : "0px",
+                  }}
+                >
+                  {formatFieldName(key)}
+                </div>
+
+                <div
+                  style={{
+                    marginLeft: depth > 0 ? "24px" : "12px",
+                    paddingLeft: "2px",
+                  }}
+                >
+                  {subSectionItems}
+                </div>
+              </div>
+            );
+          }
+        }
+
+        // --- REGULAR NESTED OBJECT ---
+        else {
+          const nestedItems = renderDataStructure(
+            value,
+            currentPath,
+            page,
+            depth,
+            entryIndex
+          );
+          items.push(...nestedItems);
+        }
+      }
+
+      // --- ARRAY HANDLING ---
+      else if (Array.isArray(value)) {
+        const fieldMarker =
+          depth === 0 || depth === 1
+            ? `(${String.fromCharCode(97 + fieldIndex)})`
+            : `(${fieldIndex + 1})`;
+
+        items.push(
+          <DataItem
+            key={`${page}-${currentPath}-array`}
+            style={{
+              padding: "8px",
+              marginBottom: "8px",
+              borderLeft: depth > 0 ? "3px solid #e8e8e8" : "none",
+              marginLeft: depth > 0 ? "12px" : "0px",
+            }}
+          >
+            <DataFieldContainer>
+              <Row gutter={[16, 4]}>
+                <Col span={14}>
+                  <FieldLabel>
+                    {fieldMarker} {formatFieldName(key)}
+                  </FieldLabel>
+                </Col>
+                <Col span={10}>
+                  <ConfidenceLabel>Array with {value.length} items</ConfidenceLabel>
+                </Col>
+              </Row>
+            </DataFieldContainer>
+
+            <SubFieldsContainer>
+              {value.map((arrayItem, arrayIndex) => {
+                if (arrayItem && typeof arrayItem === "object") {
+                  const arrayItems = renderDataStructure(
+                    arrayItem,
+                    `${currentPath}[${arrayIndex}]`,
+                    page,
+                    depth + 1,
+                    arrayIndex
+                  );
+                  return (
+                    <div
+                      key={`array-item-${arrayIndex}`}
+                      style={{
+                        marginBottom: "8px",
+                        padding: "6px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: "12px",
+                          fontWeight: "600",
+                          marginBottom: "4px",
+                        }}
+                      >
+                        Item {arrayIndex + 1}
+                      </div>
+                      {arrayItems}
+                    </div>
+                  );
+                }
+                return null;
+              })}
+            </SubFieldsContainer>
+          </DataItem>
+        );
+
+        fieldIndex++;
+      }
+    });
+
+    return items;
+  };
 
   const renderZoomControls = () => (
     <ZoomControls>
@@ -2180,7 +2188,7 @@ const renderDataStructure = (data, path = "", page = null, depth = 0) => {
         <Row justify="space-between" gutter={[16, 16]}>
           <Col xs={24} sm={12} md={24} lg={20}>
             <CardTitleStyle>Extracted Data</CardTitleStyle>
-            <PDFPageInfo>Total data extracted: {totalDataFields}</PDFPageInfo>
+            {/* <PDFPageInfo>Total data extracted: {totalDataFields}</PDFPageInfo> */}
           </Col>
           <Col
             xs={24}
@@ -2257,16 +2265,55 @@ const renderDataStructure = (data, path = "", page = null, depth = 0) => {
         <SuccessTitle>Success!</SuccessTitle>
 
         <SuccessMessage>
-          Your data has been moved to the
+          The document has been approved and is sent to the
           <br />
-          Plan Document Inventory
+          IDP feedback system
         </SuccessMessage>
 
         <SuccessButton onClick={handleViewTestAccuracy}>Continue</SuccessButton>
       </SuccessModalContainer>
     </Modal>
   );
+  //Reject Modal
+const renderDataNotAccurateModal = () => (
+  <Modal
+    open={showDataNotAccurateModal}
+    onCancel={handleDataNotAccurateClose}
+    footer={null}
+    centered
+    width={490}
+    closable={false}
+    bodyStyle={{
+      textAlign: "center",
+    }}
+    style={{
+      borderRadius: "12px",
+    }}
+  >
+    <RejectModalContainer>
+      <RejectIcon>
+        <CloseCircleOutlined
+          style={{
+            fontSize: "42px",
+            color: "#d32f2f",
+          }}
+        />
+      </RejectIcon>
 
+      <RejectTitle>Rejected!</RejectTitle>
+
+      <RejectMessage>
+        The document has been flagged as inaccurate 
+        <br />
+        
+      </RejectMessage>
+
+      <RejectButton onClick={handleDataNotAccurateContinue}>
+        Continue
+      </RejectButton>
+    </RejectModalContainer>
+  </Modal>
+);
   // New component to render action buttons in separate rows
   // New component to render action buttons in separate rows
   const renderActionButtons = () => {
@@ -2286,7 +2333,7 @@ const renderDataStructure = (data, path = "", page = null, depth = 0) => {
         </ActionButtonsRow>
         <ActionButtonsRow>
           <Col xs={12} sm={12} md={12} lg={12}>
-            <SecondaryActionButton onClick={handleViewTestAccuracy}>
+            <SecondaryActionButton onClick={handleDataNotAccurate}>
               Data Not Accurate
             </SecondaryActionButton>
           </Col>
@@ -2425,6 +2472,7 @@ const renderDataStructure = (data, path = "", page = null, depth = 0) => {
         </Col>
       </Row>
       {renderSuccessModal()}
+      {renderDataNotAccurateModal()}
     </StyledContainer>
   );
 };

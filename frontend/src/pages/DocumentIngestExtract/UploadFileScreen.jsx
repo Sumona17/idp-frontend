@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from "react";
-// import axios from "axios";
+import React, { useState, useEffect, useRef } from "react";
 import FileUploadContainer from "../../components/FileUploadContainer";
 import DataExtractionScreen from "./ExtractedData";
 import { Row, Col, Card } from "antd";
 import pdfIcon from "../../assets/images/pdf-icon.png";
 import * as pdfjsLib from "pdfjs-dist";
 import ExtractedInfoTable from "./ExtractedInfoTable";
-// import { getStaticTextConfig } from "../../data/getStaticTextConfig";
-// import { useNavigate } from "react-router-dom";
 import useLoader from "../../context/loader";
-// import { useSelector } from "react-redux";
-//import * as pdfjsLib from "pdfjs-dist/build/pdf";
-//import pdfjsWorker from "pdfjs-dist/build/pdf.worker.min.mjs?worker";
 import { DashboradStyled } from "../../styles/pages/DasboardCM";
 import {
   UploadHeader,
@@ -70,6 +64,59 @@ const fileStorage = {
   },
 };
 
+// Correct function to count only fields with actual extracted values
+const countExtractedDataElements = (extractedData) => {
+  if (!extractedData || !extractedData.results) {
+    console.log("No extractedData or results found");
+    return 0;
+  }
+
+  let totalCount = 0;
+
+  extractedData.results.forEach((page, pageIndex) => {
+    console.log(`Processing page ${pageIndex + 1}`);
+    
+    Object.keys(page).forEach((sectionKey) => {
+      // Skip the 'page' key as it's not a data field
+      if (sectionKey === 'page') {
+        return;
+      }
+
+      const section = page[sectionKey];
+      let sectionCount = 0;
+      
+      if (typeof section === 'object' && section !== null) {
+        Object.keys(section).forEach((fieldKey) => {
+          const field = section[fieldKey];
+          
+          // Only count fields that have actual extracted data
+          if (field && typeof field === 'object') {
+            // For checkbox fields (checked property exists)
+            if ('checked' in field) {
+              sectionCount++;
+              totalCount++;
+            }
+            // For text fields - only count if value exists and is not empty
+            else if ('value' in field) {
+              const value = field.value;
+              // Count only if value is not empty string, not null, and not undefined
+              if (value !== '' && value !== null && value !== undefined) {
+                sectionCount++;
+                totalCount++;
+              }
+            }
+          }
+        });
+      }
+      
+      console.log(`  Section "${sectionKey}": ${sectionCount} fields`);
+    });
+  });
+
+  console.log(`Total extracted elements: ${totalCount}`);
+  return totalCount;
+};
+
 const UploadFileScreen = () => {
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -81,6 +128,9 @@ const UploadFileScreen = () => {
   const [apiExtractedData, setApiExtractedData] = useState(null);
   const { setLoader } = useLoader();
   const [extractedElementsCount, setExtractedElementsCount] = useState(0);
+  
+  // Use ref to store the initial count and prevent recalculation
+  const initialCountRef = useRef(null);
 
   const validateFile = (fileToValidate) => {
     if (!UPLOAD_CONFIG.enableFileTypeRestriction) {
@@ -119,19 +169,18 @@ const UploadFileScreen = () => {
     setApiExtractedData(null);
     setExtractedElementsCount(0);
     setLoader(false);
+    initialCountRef.current = null;
   };
 
   useEffect(() => {
     return () => {
       resetComponentState();
-    
     };
   }, []);
 
   // Load extracted data from local JSON file
   const loadExtractedData = async () => {
     try {
-      // Simulate a slight delay for better UX
       await new Promise((resolve) => setTimeout(resolve, 500));
       return extractedDataJson;
     } catch (error) {
@@ -144,17 +193,26 @@ const UploadFileScreen = () => {
   };
 
   const handleDataFieldsCountChange = (count) => {
-    setExtractedElementsCount(count);
-    if (currentStoredFile) {
-      const updatedFileData = {
-        ...currentStoredFile,
-        uploadDetails: {
-          ...currentStoredFile.uploadDetails,
-          extractedElements: count,
-        },
-      };
-      fileStorage.storeFile(currentStoredFile.id, updatedFileData);
-      setCurrentStoredFile(updatedFileData);
+    // Prevent count changes - use the initial count only
+    console.log("handleDataFieldsCountChange called with:", count);
+    console.log("Initial count stored:", initialCountRef.current);
+    
+    // Only update if we don't have an initial count set
+    if (initialCountRef.current === null) {
+      setExtractedElementsCount(count);
+      initialCountRef.current = count;
+      
+      if (currentStoredFile) {
+        const updatedFileData = {
+          ...currentStoredFile,
+          uploadDetails: {
+            ...currentStoredFile.uploadDetails,
+            extractedElements: count,
+          },
+        };
+        fileStorage.storeFile(currentStoredFile.id, updatedFileData);
+        setCurrentStoredFile(updatedFileData);
+      }
     }
   };
 
@@ -177,6 +235,7 @@ const UploadFileScreen = () => {
     setShowDataExtraction(false);
     setIsProcessing(false);
     setApiExtractedData(null);
+    initialCountRef.current = null; // Reset the ref
 
     let pageCount = 0;
     if (fileToUpload.type === "application/pdf") {
@@ -207,23 +266,28 @@ const UploadFileScreen = () => {
       setLoader(true);
       await sleep(1000);
 
-      // Load extracted data from local JSON instead of API call
+      // Load extracted data from local JSON
       const extractedApiData = await loadExtractedData();
 
       if (extractedApiData) {
+        // Calculate the correct count of extracted elements ONCE
+        const extractedCount = countExtractedDataElements(extractedApiData);
+        
+        // Store the count in ref to prevent recalculation
+        initialCountRef.current = extractedCount;
+        
+        console.log("=== INITIAL COUNT SET ===");
+        console.log("Total extracted elements count:", extractedCount);
+
         // Set the extracted data in state
         setApiExtractedData(extractedApiData);
 
-        // **KEY FIX: Convert base64 PDF data to blob URL**
+        // Convert base64 PDF data to blob URL
         let pdfUrl;
         
         if (extractedApiData.pdf_data) {
-          // If JSON has pdf_data (base64), convert it to blob URL
           pdfUrl = `data:application/pdf;base64,${extractedApiData.pdf_data}`;
-          
-          
         } else {
-          // If no pdf_data in JSON, use the uploaded file
           pdfUrl = URL.createObjectURL(fileToUpload);
         }
 
@@ -232,7 +296,7 @@ const UploadFileScreen = () => {
           name: extractedApiData.file_name || fileToUpload.name,
           type: "application/pdf",
           size: fileToUpload.size,
-          data: pdfUrl, // Use the generated blob URL
+          data: pdfUrl,
           uploadCompleted: true,
           extractedData: extractedApiData,
         };
@@ -240,7 +304,7 @@ const UploadFileScreen = () => {
         const detailsResponse = {
           pages: pageCount,
           anomalies: 0,
-          extractedElements: 0,
+          extractedElements: extractedCount, // Use the calculated count
           missingElements: 0,
           successMessage:
             "Your file has been identified from the master documents inventory, associated with an active plan and no data anomalies were found.",
@@ -250,6 +314,9 @@ const UploadFileScreen = () => {
         fileData.uploadDetails = detailsResponse;
         fileStorage.storeFile(fileId, fileData);
         setCurrentStoredFile(fileData);
+        
+        // Set the extracted elements count
+        setExtractedElementsCount(extractedCount);
 
         setLoader(false);
         setIsProcessing(false);
@@ -267,15 +334,16 @@ const UploadFileScreen = () => {
     }
   };
 
-  useEffect(() => {
-    if (extractedElementsCount > 0 && uploadDetails) {
-      const updatedDetails = {
-        ...uploadDetails,
-        extractedElements: extractedElementsCount,
-      };
-      setUploadDetails(updatedDetails);
-    }
-  }, [extractedElementsCount]);
+  // Remove or comment out this useEffect as it's causing the count to change
+  // useEffect(() => {
+  //   if (extractedElementsCount > 0 && uploadDetails) {
+  //     const updatedDetails = {
+  //       ...uploadDetails,
+  //       extractedElements: extractedElementsCount,
+  //     };
+  //     setUploadDetails(updatedDetails);
+  //   }
+  // }, [extractedElementsCount]);
 
   const renderUploadCard = () => {
     if (!file) return null;
@@ -376,7 +444,7 @@ const UploadFileScreen = () => {
               </span>
               <span>
                 Data elements extracted:{" "}
-                <strong>{uploadDetails.extractedElements}</strong>
+                <strong>{initialCountRef.current || uploadDetails.extractedElements}</strong>
               </span>
               <span>
                 Missing Data Elements:{" "}

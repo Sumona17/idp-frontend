@@ -643,3 +643,56 @@ export const SuccessButton = styled.button`
     background-color: #004d5a;
   }
 `;
+
+// ============================================
+// REJECT MODAL STYLES (RED THEMED)
+// ============================================
+
+export const RejectModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const RejectIcon = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+`;
+
+export const RejectTitle = styled.div`
+  font-size: 20px;
+  font-weight: 600;
+  color: #d32f2f;
+  margin-bottom: 14px;
+`;
+
+export const RejectMessage = styled.div`
+  font-size: 14px;
+  color: #4A4A4B;
+  font-weight: 600;
+  margin-bottom: 14px;
+  line-height: 100%;
+  text-align: center;
+`;
+
+export const RejectButton = styled.button`
+  background-color: #006172;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: #004d5a;
+  }
+`;
