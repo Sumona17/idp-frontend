@@ -35,6 +35,16 @@ const RenderRoutes = () => {
             <Route
               key={index}
               path={path}
+              element={<Navigate to="/upload" replace />}
+            />
+          );
+        }
+
+         if (!restricted && !isAuthenticated) {
+          return (
+            <Route
+              key={index}
+              path={path}
               element={<Navigate to="/" replace />}
             />
           );
