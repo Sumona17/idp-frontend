@@ -9,7 +9,7 @@ export const TopBar = styled.div`
 export const PageWrapper = styled.div`
   width: 100%;
   height: calc(100vh - 70px);
-  background: #f8fafa;
+  background: white;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -18,9 +18,9 @@ export const PageWrapper = styled.div`
 
 export const LoginCard = styled.div`
   width: 420px;
-  background: #ffffff;
+  background: #f8fafa;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.09);
   padding: 40px;
 `;
 
@@ -38,9 +38,11 @@ export const Form = styled.form`
 `;
 
 export const Label = styled.label`
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: #143a40;
+  display: flex;
+  justify-content: flex-start;
 `;
 
 export const Input = styled.input`
@@ -49,6 +51,14 @@ export const Input = styled.input`
   border: 1px solid #cdd9de;
   outline: none;
   font-size: 15px;
+  display: block;
+  width: 100%;
+    margin-top: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out;
+    background-color: #f8fafa;
+    color: #143a40;
+
 
   &:focus {
     border-color: #28a5ae;

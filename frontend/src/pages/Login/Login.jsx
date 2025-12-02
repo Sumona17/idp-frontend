@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  TopBar,
+  
   PageWrapper,
   LoginCard,
   Title,
@@ -13,7 +13,7 @@ import {
 } from "./../../styles/pages/Login.styles";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ const Login = () => {
 
   return (
     <>
-      <TopBar />
+     
 
       <PageWrapper>
         <LoginCard>
@@ -39,12 +39,12 @@ const Login = () => {
 
           <Form onSubmit={handleLogin}>
             <div>
-              <Label>Email</Label>
+              <Label>User Name</Label>
               <Input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="username"
+                placeholder="Enter your username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
 
