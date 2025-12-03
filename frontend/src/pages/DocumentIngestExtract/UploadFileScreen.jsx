@@ -12,6 +12,9 @@ import {
   UploadTitle,
   ProgressText,
 } from "../../styles/pages/UploadFile";
+import jsonAcordStatic from "../../assets/125_202503_AdobeStatic.json";
+import jsonAcordFilled from "../../assets/Commercial Insurance Application Form Filled - ACORD 125.json";
+
 
 // Import your local JSON
 import extractedDataJson from "../../assets/responseData5.json";
@@ -75,7 +78,7 @@ const countExtractedDataElements = (extractedData) => {
 
   extractedData.results.forEach((page, pageIndex) => {
     console.log(`Processing page ${pageIndex + 1}`);
-    
+
     Object.keys(page).forEach((sectionKey) => {
       // Skip the 'page' key as it's not a data field
       if (sectionKey === 'page') {
@@ -84,11 +87,11 @@ const countExtractedDataElements = (extractedData) => {
 
       const section = page[sectionKey];
       let sectionCount = 0;
-      
+
       if (typeof section === 'object' && section !== null) {
         Object.keys(section).forEach((fieldKey) => {
           const field = section[fieldKey];
-          
+
           // Only count fields that have actual extracted data
           if (field && typeof field === 'object') {
             // For checkbox fields (checked property exists)
@@ -108,7 +111,7 @@ const countExtractedDataElements = (extractedData) => {
           }
         });
       }
-      
+
       console.log(`  Section "${sectionKey}": ${sectionCount} fields`);
     });
   });
@@ -116,6 +119,22 @@ const countExtractedDataElements = (extractedData) => {
   console.log(`Total extracted elements: ${totalCount}`);
   return totalCount;
 };
+
+// Match uploaded PDF to its JSON response
+const getMatchingJson = (pdfName) => {
+  const clean = pdfName.trim().toLowerCase();
+
+  if (clean === "125_202503_adobestatic.pdf") {
+    return jsonAcordStatic;
+  }
+
+  if (clean === "commercial insurance application form filled - acord 125.pdf") {
+    return jsonAcordFilled;
+  }
+
+  return null;
+};
+
 
 const UploadFileScreen = () => {
   const [file, setFile] = useState(null);
@@ -128,7 +147,7 @@ const UploadFileScreen = () => {
   const [apiExtractedData, setApiExtractedData] = useState(null);
   const { setLoader } = useLoader();
   const [extractedElementsCount, setExtractedElementsCount] = useState(0);
-  
+
   // Use ref to store the initial count and prevent recalculation
   const initialCountRef = useRef(null);
 
@@ -196,12 +215,12 @@ const UploadFileScreen = () => {
     // Prevent count changes - use the initial count only
     console.log("handleDataFieldsCountChange called with:", count);
     console.log("Initial count stored:", initialCountRef.current);
-    
+
     // Only update if we don't have an initial count set
     if (initialCountRef.current === null) {
       setExtractedElementsCount(count);
       initialCountRef.current = count;
-      
+
       if (currentStoredFile) {
         const updatedFileData = {
           ...currentStoredFile,
@@ -267,15 +286,23 @@ const UploadFileScreen = () => {
       await sleep(1000);
 
       // Load extracted data from local JSON
-      const extractedApiData = await loadExtractedData();
+      const extractedApiData = getMatchingJson(fileToUpload.name);
+
+      if (!extractedApiData) {
+        alert("No matching JSON found for this PDF.");
+        setLoader(false);
+        setIsProcessing(false);
+        return;
+      }
+
 
       if (extractedApiData) {
         // Calculate the correct count of extracted elements ONCE
         const extractedCount = countExtractedDataElements(extractedApiData);
-        
+
         // Store the count in ref to prevent recalculation
         initialCountRef.current = extractedCount;
-        
+
         console.log("=== INITIAL COUNT SET ===");
         console.log("Total extracted elements count:", extractedCount);
 
@@ -284,7 +311,7 @@ const UploadFileScreen = () => {
 
         // Convert base64 PDF data to blob URL
         let pdfUrl;
-        
+
         if (extractedApiData.pdf_data) {
           pdfUrl = `data:application/pdf;base64,${extractedApiData.pdf_data}`;
         } else {
@@ -314,7 +341,7 @@ const UploadFileScreen = () => {
         fileData.uploadDetails = detailsResponse;
         fileStorage.storeFile(fileId, fileData);
         setCurrentStoredFile(fileData);
-        
+
         // Set the extracted elements count
         setExtractedElementsCount(extractedCount);
 
