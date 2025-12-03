@@ -289,7 +289,7 @@ const UploadFileScreen = () => {
       const extractedApiData = getMatchingJson(fileToUpload.name);
 
       if (!extractedApiData) {
-        alert("No matching JSON found for this PDF.");
+        alert("This cannot be uploaded to the system due to server error. Please reach out to the  IDP system admin.");
         setLoader(false);
         setIsProcessing(false);
         return;
