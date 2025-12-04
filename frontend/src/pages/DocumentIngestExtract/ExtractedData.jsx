@@ -1039,6 +1039,7 @@ const DataExtractionScreen = ({
 
   const handleDataNotAccurateContinue = () => {
     setShowDataNotAccurateModal(false);
+     window.location.reload();
 
   };
   const handleModalClose = () => {
