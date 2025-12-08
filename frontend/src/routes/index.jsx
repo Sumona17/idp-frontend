@@ -2,45 +2,35 @@ import React, { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useIsFetching, useIsMutating } from "react-query";
 import { Spin } from "antd";
-
+ 
 import routes from "../constants/routes";
 import useLoader, { LoaderProvider } from "../context/loader";
 import { ScrollSyncProvider } from "../context/ScrollSyncContext";
-
+ 
 import PublicLayout from "../components/Layout/PublicLayout";
 import PrivateLayout from "../components/Layout/PrivateLayout";
-
+ 
 const RenderRoutes = () => {
   const isFetching = useIsFetching();
   const isMutating = useIsMutating();
   const { loader, setLoader } = useLoader();
-
-  // ✅ UseEffect stays the same
+ 
+  // Update global loader state whenever fetching/mutating
   useEffect(() => {
     setLoader(isFetching || isMutating);
   }, [isFetching, isMutating, setLoader]);
-
-  // ✅ Ensure this returns a boolean, not string "null"
+ 
+  // Check login status
   const isAuthenticated = Boolean(localStorage.getItem("token"));
-
+ 
   return (
     <Routes>
       {routes.map(({ component: Component, path, restricted }, index) => {
-        // ✅ Ensure Layout is always a valid component, not a string
+        // Choose layout based on route type
         const Layout = restricted ? PrivateLayout : PublicLayout;
-
-        // ✅ If route is restricted and user not logged in, redirect
+ 
+        // If restricted and user NOT authenticated → redirect to login (/)
         if (restricted && !isAuthenticated) {
-          return (
-            <Route
-              key={index}
-              path={path}
-              element={<Navigate to="/upload" replace />}
-            />
-          );
-        }
-
-         if (!restricted && !isAuthenticated) {
           return (
             <Route
               key={index}
@@ -49,8 +39,7 @@ const RenderRoutes = () => {
             />
           );
         }
-
-        // ✅ Normal route rendering
+ 
         return (
           <Route
             key={index}
@@ -66,7 +55,7 @@ const RenderRoutes = () => {
                   >
                     <Component />
                   </div>
-
+ 
                   {loader && (
                     <div className="overlayStyle">
                       <div
@@ -92,13 +81,13 @@ const RenderRoutes = () => {
           />
         );
       })}
-
-      {/* ✅ Fallback route */}
-      <Route path="*" element={<Navigate to="/" />} />
+ 
+      {/* Fallback route */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };
-
+ 
 const AppRoutes = () => (
   <LoaderProvider>
     <ScrollSyncProvider>
@@ -106,5 +95,6 @@ const AppRoutes = () => (
     </ScrollSyncProvider>
   </LoaderProvider>
 );
-
+ 
 export default AppRoutes;
+ 
