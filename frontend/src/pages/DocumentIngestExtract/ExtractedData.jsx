@@ -998,12 +998,15 @@ const DataExtractionScreen = ({
 
   const handleDownload = () => {
     // Create the download data object
+    const username = (typeof window !== "undefined" && localStorage.getItem("username")) || "unknown";
     const downloadData = {
       fileName: uploadedFileName || "extracted_data",
       extractedData: apiExtractedData || textractData,
       timestamp: new Date().toISOString(),
       totalPages: totalPages,
-      totalDataFields: totalDataFields
+      totalDataFields: totalDataFields,
+      savedBy: username,             // <-- added
+      savedByDisplay: username       // <-- optional duplicate (if you prefer other key)
     };
 
     // Convert to JSON string

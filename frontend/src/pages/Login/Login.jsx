@@ -21,7 +21,9 @@ const Login = () => {
     // Fake login — replace with real API
     localStorage.setItem("token", "12345");
 
-    navigate("/upload"); // 🔥 Redirect to upload page
+     localStorage.setItem("username", username || "unknown");
+
+    navigate("/upload"); //  Redirect to upload page
   };
 
   const handleSubmit = (e) => {
