@@ -492,15 +492,15 @@ const UploadFileScreen = () => {
         <Row gutter={[16, 16]} className="dashboard-row">
           <Col xs={24} xl={24} lg={24} md={24}>
             <Card className="dashboard-card" style={{ width: '1200px', marginLeft: -300 }}>
-              <UploadHeader style={{ marginTop: "-20" }}>
+              {/* <UploadHeader style={{ marginTop: "-20" }}>
                 <UploadTitle>upload</UploadTitle>
-              </UploadHeader>
+              </UploadHeader> */}
 
               <div style={{ position: "relative", minHeight: "150px" }}>
                 {!file && (
                   <div
                     style={{
-                      opacity: uploading ? 0 : 1,
+                     
                       transition: "opacity 0.5s ease",
                     }}
                   >
